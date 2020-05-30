@@ -174,37 +174,18 @@ class PedidoCompraController extends Controller
 
 
             foreach($request->lineas as  $linea){
-              
-
-                // $movimientoAlmacen = new MovimientoAlmacen([
-                //     'tipoMovimientoAlmacen_id' => TipoMovimientoAlmacen::where('codigo', '=', 'ENPED')->first()->id,
-                //     'almacen_id' => $pedidoCompra->almacenDestinoCompra_id,
-                //     'producto_id' => $linea['producto_id']
-                // ]);$movimientoAlmacen->save();
+               
 
                 $lineaPedido = new PedidoCompraLinea([
                     'cantidad' => $linea['cantidad'],
                     'precio' => $linea['precio'],
                     'importe' => $linea['importe'],
                     'cantidadRecibida' => 0,
-                    'pedidoCompra_id' => $pedidoCompra->id,
-                   // 'movimientoAlmacen_id' => $movimientoAlmacen->id,
+                    'pedidoCompra_id' => $pedidoCompra->id, 
                     'lineaPedidoEstado_id' => $linea['estadoLinea_id'],
                     'producto_id' => $linea['producto_id']
-                ]);$lineaPedido->save();
-
-
-
-                // $movimientoAlmacen = new MovimientoAlmacen([
-                //     'tipoMovimientoAlmacen_id' => TipoMovimientoAlmacen::where('codigo', '=', 'ENPED')->first()->id,
-                //     'almacen_id' => $pedidoCompra->almacenDestinoCompra_id,
-                //     'producto_id' => $linea['producto_id'],
-                //     'documentoOrigen_id' => $lineaPedido->id,
-                //     'documentoOrigen_type' => PedidoCompraLinea::class
-                // ]);$movimientoAlmacen->save();
-
-
-                $movimientoAlmacen = null;
+                ]);$lineaPedido->save(); 
+ 
                 $lineaPedido = null;
             }
 
@@ -283,35 +264,18 @@ class PedidoCompraController extends Controller
             // Si carecen de id, significa que se han añadido a posteriori de crear el pedido de compra
                 foreach($request->lineas as $linea){ 
                     if(!array_key_exists('id', $linea)){
-
-                        // $movimientoAlmacen = new MovimientoAlmacen([
-                        //     'tipoMovimientoAlmacen_id' => TipoMovimientoAlmacen::where('codigo', '=', 'ENPED')->first()->id,
-                        //     'almacen_id' => $pedidoCompra->almacenDestinoCompra_id,
-                        //     'producto_id' => $linea['producto_id']
-                        // ]);$movimientoAlmacen->save();
-
+ 
                         $lineaPedido = new PedidoCompraLinea([
                             'cantidad' => $linea['cantidad'],
                             'precio' => $linea['precio'],
                             'importe' => $linea['importe'],
                             'cantidadRecibida' => 0,
-                            'pedidoCompra_id' => $pedidoCompra->id,
-                            //'movimientoAlmacen_id' => $movimientoAlmacen->id,
+                            'pedidoCompra_id' => $pedidoCompra->id, 
                             'lineaPedidoEstado_id' => $linea['estadoLinea_id'],
                             'producto_id' => $linea['producto_id']
                         ]);$lineaPedido->save();
 
-
-                        // $movimientoAlmacen = new MovimientoAlmacen([
-                        //     'tipoMovimientoAlmacen_id' => TipoMovimientoAlmacen::where('codigo', '=', 'ENPED')->first()->id,
-                        //     'almacen_id' => $pedidoCompra->almacenDestinoCompra_id,
-                        //     'producto_id' => $linea['producto_id'],
-                        //     'documentoOrigen_id' => $lineaPedido->id,
-                        //     'documentoOrigen_type' => PedidoCompraLinea::class
-                        // ]);$movimientoAlmacen->save();
-
-
-                        $movimientoAlmacen = null;
+ 
                         $lineaPedido = null;
                     } 
                } //Fin foreach

@@ -38,23 +38,28 @@ Route::resource('almacenes', 'AlmacenController')->names('almacenes')->parameter
 //Pedidos 
 //En construccion
 Route::resource('pedidos_compra', 'PedidoCompraController')->names('pedidos_compra')->parameters(['pedidos_compra'=>'pedido_compra']);
-Route::post('pedidos_compra/{pedido_compra}/anadir-linea', 'PedidoCompraController@anadirLineaTabla')->name('pedidos_compra.anadir-linea');
-Route::post('pedidos_compra/anadir-linea', 'PedidoCompraController@anadirLineaTabla')->name('pedidos_compra.anadir-linea');
-Route::post('pedidos_compra/buscar-precio-producto', 'PedidoCompraController@buscarPrecioProducto')->name('pedidos_compra.buscar-precio-producto');
+Route::prefix('pedidos_compra')->group(function(){
+    Route::post('{pedido_compra}/anadir-linea', 'PedidoCompraController@anadirLineaTabla')->name('pedidos_compra.anadir-linea');
+    Route::post('anadir-linea', 'PedidoCompraController@anadirLineaTabla')->name('pedidos_compra.anadir-linea');
+    Route::post('buscar-precio-producto', 'PedidoCompraController@buscarPrecioProducto')->name('pedidos_compra.buscar-precio-producto'); 
+});
+
 
 
 //Recepciones
 //En construccion
 Route::resource('recepciones', 'RecepcionController')->names('recepciones')->parameters(['recepciones'=>'recepcion']);
-Route::post('recepciones/{recepcion}/anadir-linea', 'RecepcionController@anadirLineaTabla')->name('recepciones.anadir-linea');
-Route::post('recepciones/anadir-linea', 'RecepcionController@anadirLineaTabla')->name('recepciones.anadir-linea');
-
-Route::post('recepciones/{recepcion}/lista-pedidos', 'RecepcionController@listaPedidosPorProveedor')->name('recepciones.lista-pedidos');
-Route::post('recepciones/lista-pedidos', 'RecepcionController@listaPedidosPorProveedor')->name('recepciones.lista-pedidos');
-
-Route::post('recepciones/{recepcion}/anadirLineaPedidoEnRecepcion', 'RecepcionController@anadirLineaPedidoEnRecepcion')->name('recepciones.anadirLineaPedidoEnRecepcion');
-Route::post('recepciones/anadirLineaPedidoEnRecepcion', 'RecepcionController@anadirLineaPedidoEnRecepcion')->name('recepciones.anadirLineaPedidoEnRecepcion');
-
+Route::prefix('recepciones')->group(function(){ 
+    Route::post('{recepcion}/anadir-linea', 'RecepcionController@anadirLineaTabla')->name('recepciones.anadir-linea');
+    Route::post('anadir-linea', 'RecepcionController@anadirLineaTabla')->name('recepciones.anadir-linea');
+    
+    Route::post('{recepcion}/lista-pedidos', 'RecepcionController@listaPedidosPorProveedor')->name('recepciones.lista-pedidos');
+    Route::post('lista-pedidos', 'RecepcionController@listaPedidosPorProveedor')->name('recepciones.lista-pedidos');
+    
+    Route::post('{recepcion}/anadirLineaPedidoEnRecepcion', 'RecepcionController@anadirLineaPedidoEnRecepcion')->name('recepciones.anadirLineaPedidoEnRecepcion');
+    Route::post('anadirLineaPedidoEnRecepcion', 'RecepcionController@anadirLineaPedidoEnRecepcion')->name('recepciones.anadirLineaPedidoEnRecepcion');
+    
+});
 
 
 
@@ -65,9 +70,10 @@ Route::post('stocks/regularizarStock', 'StockController@regularizarStock')->name
 
 //Regularizaciones de stock
 Route::resource('regularizaciones_manual', 'RegularizacionManualController')->names('regularizaciones_manual')->parameters(['regularizaciones_manual'=>'regularizacion_manual']);
-Route::post('regularizaciones_manual/anadir-linea', 'RegularizacionManualController@anadirLineaTabla')->name('regularizaciones_manual.anadir-linea');
-Route::post('regularizaciones_manual/{regularizacion}/anadir-linea', 'RegularizacionManualController@anadirLineaTabla')->name('regularizaciones_manual.anadir-linea');
-
+Route::prefix('regularizaciones_manual')->group(function(){
+    Route::post('anadir-linea', 'RegularizacionManualController@anadirLineaTabla')->name('regularizaciones_manual.anadir-linea');
+    Route::post('{regularizacion}/anadir-linea', 'RegularizacionManualController@anadirLineaTabla')->name('regularizaciones_manual.anadir-linea');     
+});
 
 
 //Ruta Home

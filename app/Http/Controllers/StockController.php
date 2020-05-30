@@ -12,9 +12,19 @@ class StockController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     { 
-        return view('stocks.index',['stocks' => Stock::orderBy('almacen_id')->paginate(5)]);
+        $nombre = $request->get('buscarpor');
+
+        return view('stocks.index',['stocks' => Stock::join('almacenes', 'almacen_id', '=', 'almacenes.id')
+                    ->join('sujetos', 'sujeto_id', '=', 'sujetos.id')
+                    ->join('productos', 'producto_id', '=', 'productos.id')
+                    ->whereRaw("UPPER(productos.nombre) like  UPPER('%".$nombre."%') OR
+                                UPPER(sujetos.nombre) like UPPER('%".$nombre."%')
+                                ")
+                     ->paginate(5)] );
+        
+        // return view('stocks.index',['stocks' => Stock::orderBy('almacen_id')->paginate(5)]);
     }
 
     /**

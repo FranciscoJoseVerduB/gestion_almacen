@@ -83,12 +83,11 @@
     <div class="d-flex align-items-baseline float-right my-2"> 
         <input class="btn btn-primary btn-sm btn-block anadirLineaPedido"  
             type="button"     
-            @if($pedido_compra->estado){
-                     $pedido_compra->estado->estado === 'Servido' || 
+            @if($pedido_compra->estado)
+                     {{($pedido_compra->estado->estado === 'Servido' || 
                         $pedido_compra->estado->estado === 'Anulado')
                         ? 'Disabled'
-                        : ''
-                        }
+                        : ''}}
             @endif
             value="Añadir linea"> 
     </div>
@@ -115,15 +114,14 @@
 
 </div>
 
-<hr>     
-<button class="btn btn-primary btn-lg btn-block" 
-        type="button"     
-        @if($pedido_compra->estado){
-                $pedido_compra->estado->estado === 'Servido' || 
+<hr>      
+<button class="btn btn-primary btn-lg btn-block"  
+        @if($pedido_compra->estado != null) 
+               {{ ($pedido_compra->estado->estado === 'Servido' || 
                     $pedido_compra->estado->estado === 'Anulado')
                     ? 'Disabled'
                     : ''
-                    }
+                }}
         @endif
     type="submit" 
     >{{$btnText}}
