@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
+    
+
     /**
      * Display a listing of the resource.
      *

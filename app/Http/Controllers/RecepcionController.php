@@ -16,6 +16,7 @@ use App\TipoMovimientoAlmacen;
 use App\User;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RecepcionController extends Controller
@@ -23,6 +24,12 @@ class RecepcionController extends Controller
 
     private $serie = 'RE';
 
+
+    public function __construct()
+    {
+        // $this->authorize('verPanelRecepciones');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -40,6 +47,8 @@ class RecepcionController extends Controller
      */
     public function create()
     {
+        $this->authorize('escribirPanelRecepciones');
+
         return view('recepciones.create', [
             'recepcion'=> new Recepcion,  
             'lineas' => array(),
@@ -58,6 +67,8 @@ class RecepcionController extends Controller
      */
     public function store(SaveRecepcionRequest $request)
     { 
+        $this->authorize('escribirPanelRecepciones');
+
         try{
             DB::beginTransaction();
 
@@ -68,7 +79,7 @@ class RecepcionController extends Controller
                 'observaciones' => $request->observaciones,
                 'proveedor_id' => $request->proveedor_id,
                 'almacen_id' => $request->almacen_id, 
-                'usuario_id' => User::firstOrFail()->id
+                'usuario_id' => Auth::user()->id
             ]);$recepcion->save();
 
 
@@ -140,7 +151,9 @@ class RecepcionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Recepcion $recepcion)
-    {
+    { 
+        $this->authorize('escribirPanelRecepciones');
+
         return view('recepciones.edit', [
             'recepcion'=> $recepcion,  
             'lineas' => $recepcion->lineas,
@@ -159,6 +172,8 @@ class RecepcionController extends Controller
      */
     public function update(SaveRecepcionRequest $request, Recepcion $recepcion)
     {
+        $this->authorize('escribirPanelRecepciones');
+
         try{
 
             DB::beginTransaction();
@@ -273,6 +288,8 @@ class RecepcionController extends Controller
      */
     public function destroy(Recepcion $recepcion)
     { 
+        $this->authorize('escribirPanelRecepciones');
+
         $recepcion->delete(); 
         return redirect()->route('recepciones.index')->with('status', 'La recepcion fue eliminado con éxito');
     }

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\PedidoCompra;
+use App\Policies\PedidoPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -14,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
+        PedidoCompra::class => PedidoPolicy::class
     ];
 
     /**
@@ -24,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+ 
         //
     }
 }

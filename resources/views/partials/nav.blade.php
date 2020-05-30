@@ -13,7 +13,8 @@
     </a>  
     
 
-    <button class="navbar-toggler" type="button" 
+    <button class="navbar-toggler" 
+            type="button" 
             data-toggle="collapse" 
             data-target="#navbarSupportedContent" 
             aria-controls="navbarSupportedContent" 

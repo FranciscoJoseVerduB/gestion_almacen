@@ -15,6 +15,7 @@ use App\Proveedor;
 use App\TipoMovimientoAlmacen;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PedidosEstados;
 
@@ -22,13 +23,20 @@ class PedidoCompraController extends Controller
 {
 
     private $serie = 'PE';
-    /**
+
+   
+    /** 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {  
+    {   
+        $user = Auth::user();
+        
+  
+        $this->authorize('verPanelPedidos', new PedidoCompra);
+
         return view('pedidos.index',['pedidos_compra' => PedidoCompra::latest()->paginate(5)]); 
     }
 
@@ -169,7 +177,7 @@ class PedidoCompraController extends Controller
                 'proveedor_id' => $request->proveedor_id,
                 'almacenDestinoCompra_id' => $request->almacenDestinoCompra_id,
                 'estadoPedido_id'=> $request->estadoPedido_id,
-                'usuario_id' => User::firstOrFail()->id
+                'usuario_id' => Auth::user()->id
             ]);$pedidoCompra->save();
 
 

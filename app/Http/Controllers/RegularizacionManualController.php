@@ -18,6 +18,13 @@ class RegularizacionManualController extends Controller
 {
 
     private $serie = 'RG';
+ 
+    
+    public function __construct()
+    {
+        $this->authorize('verPanelStock');
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -36,6 +43,8 @@ class RegularizacionManualController extends Controller
      */
     public function create()
     {
+        $this->authorize('escribirPanelStock');
+
         return view('regularizaciones.create', [
             'regularizacion_manual'=> new RegularizacionManual,
             'lineas' => array(),
@@ -52,6 +61,8 @@ class RegularizacionManualController extends Controller
      */
     public function store(SaveRegularizacionRequest $request)
     {
+        $this->authorize('escribirPanelStock');
+
         try{
             DB::beginTransaction();
 
@@ -61,7 +72,7 @@ class RegularizacionManualController extends Controller
                 'fecha' => $request->fecha,
                 'observaciones' => $request->observaciones,
                 'almacen_id' => $request->almacen_id,
-                'usuario_id' => User::firstOrFail()->id
+                'usuario_id' => Auth::user()->id
             ]);$regularizacionManual->save();
 
 
@@ -143,6 +154,8 @@ class RegularizacionManualController extends Controller
      */
     public function edit(RegularizacionManual $regularizacionManual)
     {
+        $this->authorize('escribirPanelStock');
+        
         return view('regularizaciones.edit', [
             'regularizacion_manual'=> $regularizacionManual,
             'lineas' => $regularizacionManual->lineas,
@@ -160,6 +173,8 @@ class RegularizacionManualController extends Controller
      */
     public function update(SaveRegularizacionRequest $request, RegularizacionManual $regularizacionManual)
     {
+        $this->authorize('escribirPanelStock');
+
         try{
 
             DB::beginTransaction();
@@ -259,6 +274,8 @@ class RegularizacionManualController extends Controller
      */
     public function destroy(RegularizacionManual $regularizacionManual)
     {
+        $this->authorize('escribirPanelStock');
+        
         $regularizacionManual->delete();
         return redirect()->route('regularizaciones_manual.index')->with('status', 'La regularizacion fue eliminada con éxito');
     }
