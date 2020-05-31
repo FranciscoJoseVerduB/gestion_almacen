@@ -24,6 +24,8 @@ class PedidoCompraController extends Controller
 {
 
     private $serie = 'PE';
+    private $numeroLinks = 15;
+
 
     public function __construct()
     {
@@ -38,7 +40,7 @@ class PedidoCompraController extends Controller
     public function index(Request $request)
     {    
 
-        return view('pedidos.index',['pedidos_compra' => PedidoCompra::latest()->paginate(5)]); 
+        return view('pedidos.index',['pedidos_compra' => PedidoCompra::latest()->paginate($this->numeroLinks)]); 
     }
 
     /**

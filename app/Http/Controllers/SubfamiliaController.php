@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 class SubfamiliaController extends Controller
 {
     
+    private $numeroLinks = 15;
+
 
     public function __construct()
     {
@@ -24,7 +26,7 @@ class SubfamiliaController extends Controller
      */
     public function index()
     {
-       return view('articulos.subfamilias.index',['subfamilias' => Subfamilia::latest()->paginate(5)]); 
+       return view('articulos.subfamilias.index',['subfamilias' => Subfamilia::latest()->paginate($this->numeroLinks)]); 
     }
 
     /**

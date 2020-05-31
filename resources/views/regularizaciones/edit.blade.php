@@ -5,7 +5,7 @@
 
 @section('content')
   
-<div class="container-fluid"> 
+<div class="container"> 
     <div class="form-row">
         <div class="col-12 col-sm-10 col-lg-11 mx-auto">
             @include('partials.validation-errors')

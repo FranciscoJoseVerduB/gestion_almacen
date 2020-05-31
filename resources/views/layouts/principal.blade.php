@@ -30,7 +30,7 @@
             @include('partials.session-status')
         </header>
 
-        <main class="my-5">
+        <main class="my-0">
             @yield('content')
         </main>
 

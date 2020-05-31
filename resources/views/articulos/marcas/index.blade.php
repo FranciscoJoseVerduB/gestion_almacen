@@ -3,21 +3,14 @@
 
 @section('title', 'Marcas')
 
-@section('content')
-
-
+@section('content') 
     <div class="container"> 
-        <div class="d-flex justify-content-between align-items-center mb-3"> 
-            <h1 class="display-6 mb-0">@lang('Marcas')</h1>
 
-            @auth
-            
-            @endauth
-                <a class="btn btn-primary "
-                    href="{{route('marcas.create')}}"
-                >Crear marca
-                </a>
-        </div>
+        @include('partials.crear-entidad', [
+                    'ruta' => 'marcas',
+                    'texto' => 'Crear Marca', 
+                    'permisos' => 'modificarPanelProductos'
+        ])
  
      
             <table class="table  table-sm table-striped table-bordered table-hover shadow">

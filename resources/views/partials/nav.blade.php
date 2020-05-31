@@ -33,7 +33,13 @@
             </li> 
             @can('verPanelProductos', new App\Producto)
                 <li class="nav-item dropdown"> 
-                    <a class="nav-link dropdown-toggle {{ setActive('productos.*') }}  {{ setActive('articulos') }}" 
+                    <a class="nav-link dropdown-toggle 
+                            {{ setActive('productos.*') }}
+                            {{ setActive('marcas.*') }}  
+                            {{ setActive('impuestos.*') }}  
+                            {{ setActive('familias.*') }}  
+                            {{ setActive('subfamilias.*') }}   
+                            {{ setActive('articulos') }}" 
                         href="#"
                         id="navbarDropdownArticulos" 
                         role="button" 
@@ -43,58 +49,23 @@
                         @lang('Articulos')
                     </a> 
                     <div class="dropdown-menu  " aria-labelledby="navbarDropdownArticulos">
-                            <a class="dropdown-item" href="{{route('impuestos.index')}}">Impuestos<a>    
-                            <a class="dropdown-item" href="{{route('familias.index')}}">Familias</a>
-                            <a class="dropdown-item" href="{{route('marcas.index')}}">Marcas</a>
-                            <a class="dropdown-item" href="{{route('productos.index')}}">Productos</a> 
-                            <a class="dropdown-item" href="{{route('subfamilias.index')}}">Subfamilias</a>
+                            <a class="dropdown-item {{ setActive('impuestos.*') }}  " href="{{route('impuestos.index')}}">Impuestos<a>    
+                            <a class="dropdown-item {{ setActive('familias.*') }}  " href="{{route('familias.index')}}">Familias</a>
+                            <a class="dropdown-item {{ setActive('marcas.*') }}  " href="{{route('marcas.index')}}">Marcas</a>
+                            <a class="dropdown-item {{ setActive('productos.*') }}  " href="{{route('productos.index')}}">Productos</a> 
+                            <a class="dropdown-item {{ setActive('subfamilias.*') }}  " href="{{route('subfamilias.index')}}">Subfamilias</a>
                             
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{route('articulos')}}">Articulos</a>
                     </div>
                 </li> 
             @endcan
-
-            <!--
-            @can('verPanelPedidos', new App\PedidoCompra )
-                <li class="nav-item  ">
-                    <a class="nav-link {{ setActive('pedidos_compra.*') }}" href="{{route('pedidos_compra.index')}}">
-                        @lang('Pedidos')
-                    </a>
-                </li> 
-            @endcan
-            @can('verPanelRecepciones', new App\Recepcion  )
-                <li class="nav-item  ">
-                    <a class="nav-link {{ setActive('recepciones.*') }}" href="{{route('recepciones.index')}}">
-                        @lang('Recepciones')
-                    </a>
-                </li> 
-            @endcan 
-            
-            @can('verPanelProveedores', new App\Proveedor)
-                <li class="nav-item  ">
-                    <a class="nav-link {{ setActive('proveedores.*') }}" href="{{route('proveedores.index')}}">
-                        @lang('Proveedores')
-                    </a>
-                </li> 
-            @endcan
-            
-            @can('verPanelAlmacenes', new App\Almacen)
-                <li class="nav-item  ">
-                    <a class="nav-link {{ setActive('almacenes.*') }}" href="{{route('almacenes.index')}}">
-                        @lang('Almacenes')
-                    </a>
-                </li> 
-            @endcan
-            -->
-
-            
-            
-
-
+  
             @can('verPanelUbicaciones', new App\Ubicacion)
                 <li class="nav-item dropdown"> 
-                    <a class="nav-link dropdown-toggle {{ setActive('almacenes.*') }}  {{ setActive('proveedores') }}" 
+                    <a class="nav-link dropdown-toggle 
+                            {{ setActive('almacenes.*') }}  
+                            {{ setActive('proveedores.*') }}" 
                         href="#"
                         id="navbarDropdownUbicaciones" 
                         role="button" 
@@ -105,10 +76,10 @@
                     </a> 
                     <div class="dropdown-menu  " aria-labelledby="navbarDropdownUbicaciones">
                         @can('verPanelAlmacenes', new App\Almacen)
-                            <a class="dropdown-item" href="{{route('almacenes.index')}}">@lang('Almacenes')<a>  
+                            <a class="dropdown-item  {{ setActive('almacenes.*') }}  " href="{{route('almacenes.index')}}">@lang('Almacenes')<a>  
                         @endcan
                         @can('verPanelProveedores', new App\Proveedor)  
-                            <a class="dropdown-item" href="{{route('proveedores.index')}}">@lang('Proveedores')</a>  
+                            <a class="dropdown-item  {{ setActive('proveedores.*') }}  " href="{{route('proveedores.index')}}">@lang('Proveedores')</a>  
                         @endcan
                     </div>
                 </li> 
@@ -125,39 +96,45 @@
                     role="button" 
                     data-toggle="dropdown" 
                     aria-haspopup="true" 
-                    aria-expanded="false">
-                    @lang('Procesos')
+                    aria-expanded="false"
+                    >@lang('Procesos')
                 </a> 
                 <div class="dropdown-menu  " aria-labelledby="navbarDropdownProcesos">
                     @can('verPanelPedidos', new App\PedidoCompra )
-                        <a class="dropdown-item" href="{{route('pedidos_compra.index')}}">@lang('Pedidos')<a>  
+                        <a class="dropdown-item {{ setActive('pedidos_compra.*') }}" href="{{route('pedidos_compra.index')}}">@lang('Pedidos')<a>  
                     @endcan  
                     @can('verPanelRecepciones', new App\Recepcion )
-                        <a class="dropdown-item" href="{{route('recepciones.index')}}">@lang('Recepciones')</a>
+                        <a class="dropdown-item {{ setActive('recepciones.*') }}" href="{{route('recepciones.index')}}">@lang('Recepciones')</a>
                     @endcan
-                    @can('verPanelStock', new App\Stock )
-                        <a class="dropdown-item" href="{{route('stocks.index')}}">@lang('Stock')</a>  
+                    @can('verPanelStock', new App\Stock ) 
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item {{ setActive('stocks.*') }}" href="{{route('stocks.index')}}">@lang('Stock')</a>  
+                        <a class="dropdown-item {{ setActive('regularizaciones_manual.*') }}" href="{{route('regularizaciones_manual.index')}}">@lang('Regularizaciones Manuales')</a>  
                     @endcan
                 </div>
             </li> 
         @endcan
 
 
-            <!--
-            @can('verPanelStock', new App\Stock )
-                <li class="nav-item  ">
-                    <a class="nav-link {{ setActive('stocks.*') }}" href="{{route('stocks.index')}}">
-                        @lang('Stock')
-                    </a>
-                </li> 
-            @endcan
-            -->
-            @can('verPanelUsuarios', new App\User)
-                <li class="nav-item  ">
-                    <a class="nav-link {{ setActive('usuarios.*') }}  {{ setActive('roles.*') }}" href="{{route('usuarios.index')}}">
+         
+            @can('verPanelUsuarios', new App\User) 
+                <li class="nav-item dropdown"> 
+                    <a class="nav-link dropdown-toggle 
+                            {{ setActive('usuarios.*') }}  
+                            {{ setActive('roles.*') }} "
+                        href="#"
+                        id="navbarDropdownProcesos" 
+                        role="button" 
+                        data-toggle="dropdown" 
+                        aria-haspopup="true" 
+                        aria-expanded="false">
                         @lang('Usuarios')
-                    </a>
-                </li>  
+                    </a> 
+                    <div class="dropdown-menu  " aria-labelledby="navbarDropdownProcesos"> 
+                        <a class="dropdown-item {{ setActive('usuarios.*') }}  " href="{{route('usuarios.index')}}">@lang('Usuarios')<a>    
+                        <a class="dropdown-item {{ setActive('roles.*') }}  " href="{{route('roles.index')}}">@lang('Roles')</a> 
+                    </div>
+                </li> 
             @endcan
 
             
@@ -189,6 +166,17 @@
 
 </nav>
 
+<nav class="nav flex-column"
+    aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i>Home/</a></li>
+        <?php $segments = ''; ?>
+        @foreach(Request::segments() as $segment)
+            <?php $segments .= '/'.$segment; ?>
+            <li class="breadcrumb-item"><a href="{{ $segments }}">{{$segment}}</a>
+            </li>
+        @endforeach 
+    </ol>
+  </nav>
 
-
-
+ 

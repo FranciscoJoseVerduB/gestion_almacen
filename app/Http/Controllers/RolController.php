@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 class RolController extends Controller
 {
+    private $numeroLinks = 15;
+
     public function __construct()
     {
         $this->middleware(CheckUsuario::class);
@@ -24,7 +26,7 @@ class RolController extends Controller
      */
     public function index()
     {
-        return view('usuarios.roles.index',['roles' => Rol::latest()->paginate(5)]);
+        return view('usuarios.roles.index',['roles' => Rol::latest()->paginate($this->numeroLinks)]);
     }
 
     

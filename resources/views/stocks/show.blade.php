@@ -3,7 +3,7 @@
 @section('title', 'Stock | ' . $stock->almacen->sujeto->nombre . '/' . $stock->producto->codigo)
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="bg-white p-5 shadow rounded sm-show"> 
  
     

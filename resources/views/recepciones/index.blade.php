@@ -2,24 +2,16 @@
  
 @section('title', 'Recepciones')
 
-@section('content')
-
-
+@section('content') 
     <div class="container"> 
-        <div class="d-flex justify-content-between align-items-center mb-3"> 
-            <h1 class="display-6 mb-0">@lang('Recepciones')</h1>
 
-            @auth
-            
-            @endauth
-             <div class="d-flex align-items-baseline">
-                    <a class="btn btn-primary "
-                        href="{{route('recepciones.create')}}"
-                    >Crear Recepción
-                    </a>
-            </div>
-        </div>
- 
+
+      @include('partials.crear-entidad', [
+          'ruta' => 'recepciones',
+          'texto' => 'Crear Recepcion', 
+          'permisos' => 'modificarPanelRecepciones' 
+      ])
+  
 
         <table class="table  table-sm table-striped table-bordered table-hover shadow">
             <thead  class="bg-info text-white">

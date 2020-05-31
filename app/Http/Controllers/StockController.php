@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
+
+    private $numeroLinks = 15;
+
+    
     public function __construct()
     {
         $this->middleware(CheckStock::class);
@@ -29,7 +33,7 @@ class StockController extends Controller
                     ->whereRaw("UPPER(productos.nombre) like  UPPER('%".$nombre."%') OR
                                 UPPER(sujetos.nombre) like UPPER('%".$nombre."%')
                                 ")
-                     ->paginate(5)] );
+                     ->paginate($this->numeroLinks)] );
         
         // return view('stocks.index',['stocks' => Stock::orderBy('almacen_id')->paginate(5)]);
     }

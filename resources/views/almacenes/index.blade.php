@@ -5,19 +5,12 @@
 @section('content')
  
     <div class="container"> 
-        <div class="d-flex justify-content-between align-items-center mb-3"> 
-            <h1 class="display-6 mb-0">@lang('Almacenes')</h1>
 
-            @auth
-            
-            @endauth 
-            
-            <a class="btn btn-primary "
-                href="{{route('almacenes.create')}}"
-            >Crear Almacen
-            </a> 
-            
-        </div>
+        @include('partials.crear-entidad', [
+                    'ruta' => 'almacenes',
+                    'texto' => 'Crear Almacen', 
+                    'permisos' => 'modificarPanelAlmacenes'
+        ])
  
 
         <table class="table  table-sm table-striped table-bordered table-hover shadow">

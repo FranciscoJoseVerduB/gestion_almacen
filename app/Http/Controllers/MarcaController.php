@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 class MarcaController extends Controller
 {
 
+    private $numeroLinks = 15;
+
     public function __construct()
     {
         $this->middleware(CheckProducto::class);
@@ -23,7 +25,7 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        return view('articulos.marcas.index',['marcas' => Marca::latest()->paginate(5)]);
+        return view('articulos.marcas.index',['marcas' => Marca::latest()->paginate($this->numeroLinks)]);
     }
 
     /**

@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 
 class ProductoController extends Controller
 {
+    private $numeroLinks = 15;
+
 
     public function __construct()
     {
@@ -28,7 +30,7 @@ class ProductoController extends Controller
         $nombre = $request->get('buscarpor');
 
         return view('articulos.productos.index',
-                ['productos' => Producto::where('nombre','like',"%$nombre%")->paginate(5)]);
+                ['productos' => Producto::where('nombre','like',"%$nombre%")->paginate($this->numeroLinks)]);
     }
 
     /**

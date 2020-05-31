@@ -20,6 +20,8 @@ class RegularizacionManualController extends Controller
 {
 
     private $serie = 'RG';
+    private $numeroLinks = 15;
+
  
     
     public function __construct()
@@ -36,7 +38,7 @@ class RegularizacionManualController extends Controller
      */
     public function index()
     { 
-        return view('regularizaciones.index',['regularizaciones_manual' => RegularizacionManual::latest()->paginate(5)]);
+        return view('regularizaciones.index',['regularizaciones_manual' => RegularizacionManual::latest()->paginate($this->numeroLinks)]);
     }
 
     /**

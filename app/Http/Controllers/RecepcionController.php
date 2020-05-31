@@ -24,6 +24,8 @@ class RecepcionController extends Controller
 {
 
     private $serie = 'RE';
+    private $numeroLinks = 15;
+
 
 
     public function __construct()
@@ -39,7 +41,7 @@ class RecepcionController extends Controller
      */
     public function index()
     {
-        return view('recepciones.index',['recepciones' => Recepcion::latest()->paginate(5)]); 
+        return view('recepciones.index',['recepciones' => Recepcion::latest()->paginate($this->numeroLinks)]); 
     }
 
     /**

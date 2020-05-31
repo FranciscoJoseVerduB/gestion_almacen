@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 { 
+    private $numeroLinks = 15;
+
+
 
     public function __construct()
     {
@@ -25,7 +28,7 @@ class UserController extends Controller
      */
     public function index()
     { 
-        return view('usuarios.index',['usuarios' => User::latest()->paginate(5)]); 
+        return view('usuarios.index',['usuarios' => User::latest()->paginate($this->numeroLinks)]); 
     }
 
     /**

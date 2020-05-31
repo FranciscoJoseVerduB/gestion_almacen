@@ -2,17 +2,11 @@
  
 @section('title', 'Stock')
 
-@section('content')
-
-
+@section('content') 
     <div class="container"> 
-        <div class="d-flex justify-content-between align-items-center mb-3"> 
-            <h1 class="display-6 mb-0">@lang('Stock')</h1>
 
-            @auth
-            
-            @endauth
-             <div class="d-flex align-items-baseline">
+        <div class="d-flex justify-content-between align-items-center mb-3">  
+            <div class="d-flex align-items-baseline">
                     <a class="btn btn-primary "
                         href="{{route('regularizaciones_manual.index')}}"
                     >Regularizar stock

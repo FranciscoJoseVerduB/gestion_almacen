@@ -3,7 +3,7 @@
 @section('title', 'Usuario | ' . $usuario->codigo)
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="bg-white p-5 shadow rounded">
  
 

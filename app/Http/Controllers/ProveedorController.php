@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class ProveedorController extends Controller
 {
+    private $numeroLinks = 15;
+
+
+
     public function __construct()
     {
         $this->middleware(CheckProveedor::class);
@@ -24,7 +28,7 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        return view('proveedores.index',['proveedores' => Proveedor::latest()->paginate(5)]);
+        return view('proveedores.index',['proveedores' => Proveedor::latest()->paginate($this->numeroLinks)]);
     }
 
     /**

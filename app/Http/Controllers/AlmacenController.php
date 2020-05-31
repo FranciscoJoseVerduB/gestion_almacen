@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 class AlmacenController extends Controller
 {
+    private $numeroLinks = 15;
+
     public function __construct()
     {
         $this->middleware(CheckAlmacen::class);
@@ -25,7 +27,7 @@ class AlmacenController extends Controller
      */
     public function index()
     {    
-        return view('almacenes.index',['almacenes' => Almacen::latest()->paginate(5)]);
+        return view('almacenes.index',['almacenes' => Almacen::latest()->paginate($this->numeroLinks)]);
     }
 
     /**

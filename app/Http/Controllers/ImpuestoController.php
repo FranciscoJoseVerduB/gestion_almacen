@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 
 class ImpuestoController extends Controller
 {
-    
+    private $numeroLinks = 15;
+
+
     public function __construct()
     {
         $this->middleware(CheckProducto::class);
@@ -22,7 +24,7 @@ class ImpuestoController extends Controller
      */
     public function index()
     {
-        return view('articulos.impuestos.index',['impuestos' => Impuesto::latest()->paginate(5)]);
+        return view('articulos.impuestos.index',['impuestos' => Impuesto::latest()->paginate($this->numeroLinks)]);
     }
 
     /**

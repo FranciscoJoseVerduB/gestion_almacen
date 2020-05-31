@@ -2,23 +2,15 @@
  
 @section('title', 'Pedidos de Compra')
 
-@section('content')
-
-
+@section('content') 
     <div class="container"> 
-        <div class="d-flex justify-content-between align-items-center mb-3"> 
-            <h1 class="display-6 mb-0">@lang('Pedidos')</h1>
 
-            @auth
-            
-            @endauth
-             <div class="d-flex align-items-baseline">
-                    <a class="btn btn-primary "
-                        href="{{route('pedidos_compra.create')}}"
-                    >Crear Pedido
-                    </a>
-            </div>
-        </div>
+
+      @include('partials.crear-entidad', [
+            'ruta' => 'pedidos_compra',
+            'texto' => 'Crear Pedido', 
+            'permisos' => 'modificarPanelPedidos' 
+        ])
  
 
         <table class="table  table-sm table-striped table-bordered table-hover shadow">

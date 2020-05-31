@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 
 class FamiliaController extends Controller
 {
-    
+    private $numeroLinks = 15;
+
     public function __construct()
     {
         $this->middleware(CheckProducto::class);
@@ -23,7 +24,7 @@ class FamiliaController extends Controller
      */
     public function index()
     {
-        return view('articulos.familias.index',['familias' => Familia::latest()->paginate(5)]);
+        return view('articulos.familias.index',['familias' => Familia::latest()->paginate($this->numeroLinks)]);
     }
 
     /**

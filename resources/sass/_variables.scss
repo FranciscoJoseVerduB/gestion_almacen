@@ -53,4 +53,9 @@ $azul-claro: #F0F8FF;
     @extend .table-hover; 
 }
 
+@media (max-width: 800.00px) {
+    .container {
+        min-width: 100%;
+    }
+}
  

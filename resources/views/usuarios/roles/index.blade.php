@@ -2,16 +2,11 @@
  
 @section('title', 'Roles')
 
-@section('content')
-
+@section('content') 
 
     <div class="container"> 
-        <div class="d-flex justify-content-between align-items-center mb-3"> 
-            <h1 class="display-6 mb-0">@lang('Roles')</h1>
 
-            @auth
-            
-            @endauth 
+        <div class="d-flex justify-content-between align-items-center mb-3">  
             <div class="d-flex align-items-baseline">
                 <a class="btn btn-primary float-right mr-2"
                     href="{{route('usuarios.index')}}"
