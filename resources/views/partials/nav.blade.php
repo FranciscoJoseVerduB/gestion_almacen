@@ -1,5 +1,5 @@
 <nav  
-    class="navbar navbar-light navbar-expand-xl shadow-lg">
+    class="navbar  navbar-light navbar-expand-lg shadow-lg">
 
     <a class="navbar-brand" href="{{route('home')}}"> 
     
@@ -166,7 +166,7 @@
 
 </nav>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light"
+<nav class=" "
     aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i>Home/</a></li>
