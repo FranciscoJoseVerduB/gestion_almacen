@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckStock;
 use App\Stock;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware(CheckStock::class);
+    }
+   
 
     /**
      * Display a listing of the resource.

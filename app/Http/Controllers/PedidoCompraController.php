@@ -48,9 +48,7 @@ class PedidoCompraController extends Controller
      */
     public function create()
     {
-        
-        $this->authorize('escribirPanelPedidos', new PedidoCompra);
-
+         
         return view('pedidos.create', [
             'pedido_compra'=> new PedidoCompra,  
             'lineas' => array(),
@@ -62,8 +60,188 @@ class PedidoCompraController extends Controller
         ]); 
     }
 
-    //Utilizaremos esta funcion para buscar el precio del producto seleccionado en el escenario de creación de pedidos de compra
-    public function buscarPrecioProducto(Request $request){
+   
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(SavePedidoCompraRequest $request)
+    {   
+          
+        $this->authorize('modificarPanelPedidos', new PedidoCompra);
+
+
+        try{
+            DB::beginTransaction();
+
+            $pedidoCompra = new PedidoCompra([
+                'serie' => $this->serie,
+                'numero' => PedidoCompra::max('numero')? (PedidoCompra::max('numero') +1): 1,
+                'fecha' => $request->fecha,
+                'observaciones' => $request->observaciones,
+                'proveedor_id' => $request->proveedor_id,
+                'almacenDestinoCompra_id' => $request->almacenDestinoCompra_id,
+                'estadoPedido_id'=> $request->estadoPedido_id,
+                'usuario_id' => Auth::user()->id
+            ]);$pedidoCompra->save();
+
+
+            foreach($request->lineas as  $linea){
+               
+
+                $lineaPedido = new PedidoCompraLinea([
+                    'cantidad' => $linea['cantidad'],
+                    'precio' => $linea['precio'],
+                    'importe' => $linea['importe'],
+                    'cantidadRecibida' => 0,
+                    'pedidoCompra_id' => $pedidoCompra->id, 
+                    'lineaPedidoEstado_id' => $linea['estadoLinea_id'],
+                    'producto_id' => $linea['producto_id']
+                ]);$lineaPedido->save(); 
+ 
+                $lineaPedido = null;
+            }
+
+            DB::commit();
+                
+            return redirect()->route('pedidos_compra.index')->with('status', 'El pedido fue creado con éxito');
+        }catch(\Exception $e){
+            DB::rollback(); 
+            return redirect()->route('pedidos_compra.index')->with('status', 'Ha ocurrido un error al crear el pedido. '. 'Mensaje de error: '.$e);
+        }
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\PedidoCompra  $pedidoCompra
+     * @return \Illuminate\Http\Response
+     */
+    public function show(PedidoCompra $pedidoCompra)
+    {
+        return view('pedidos.show', [
+            'pedido_compra' => $pedidoCompra
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\PedidoCompra  $pedidoCompra
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(PedidoCompra $pedidoCompra)
+    {    
+
+        return view('pedidos.edit', [
+            'pedido_compra'=> $pedidoCompra,  
+            'lineas' => $pedidoCompra->lineas,
+            'productos' => Producto::all(), 
+            'proveedores' => Proveedor::all(),
+            'almacenes' => Almacen::all(), 
+            'estados' => PedidoCompraEstado::all(),
+            'linea_estados' => PedidoCompraLineaEstado::all()
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\PedidoCompra  $pedidoCompra
+     * @return \Illuminate\Http\Response
+     */
+    public function update(SavePedidoCompraRequest $request, PedidoCompra $pedidoCompra)
+    { 
+        
+        $this->authorize('modificarPanelPedidos', $pedidoCompra);
+
+        try{
+
+            DB::beginTransaction();
+
+            //Creamos un array y obtenemos los distintos ids que devuelve el formulario
+            //Es decir, si alguna línea tiene id significa que ya fue creada previamente
+            //En caso de que haya sido borrada alguna, lo detectaremos borrando las lineas
+            //que pertenezcan al pedido de compra en cuestión y que no estén en este array de ids
+            $ids = array();
+            foreach($request->lineas as $linea){ 
+                if(array_key_exists('id', $linea)){
+                    array_push($ids, $linea['id']);
+                } 
+            }
+
+            //Borramos las lineas de pedido que no pertenezcan al array
+            $lineas = PedidoCompraLinea::where('pedidoCompra_id', '=', $pedidoCompra->id)
+                                        ->whereNotIn('id', $ids)->delete();
+
+            // Creamos las lineas que se han añadido y que carecen de id
+            // Si carecen de id, significa que se han añadido a posteriori de crear el pedido de compra
+                foreach($request->lineas as $linea){ 
+                    if(!array_key_exists('id', $linea)){
+ 
+                        $lineaPedido = new PedidoCompraLinea([
+                            'cantidad' => $linea['cantidad'],
+                            'precio' => $linea['precio'],
+                            'importe' => $linea['importe'],
+                            'cantidadRecibida' => 0,
+                            'pedidoCompra_id' => $pedidoCompra->id, 
+                            'lineaPedidoEstado_id' => $linea['estadoLinea_id'],
+                            'producto_id' => $linea['producto_id']
+                        ]);$lineaPedido->save();
+
+ 
+                        $lineaPedido = null;
+                    } 
+               } //Fin foreach
+
+            //Actualizamos las lineas del pedido de compra
+            foreach($request->lineas as $linea){ 
+                if(array_key_exists('id', $linea)){
+                    PedidoCompraLinea::find($linea['id'])->update($linea);
+                } 
+            }
+
+            //Actualizamos el pedido de venta 
+            $pedidoCompra->observaciones = $request->observaciones;
+            $pedidoCompra->proveedor_id = $request->proveedor_id; 
+            $pedidoCompra->almacenDestinoCompra_id = $request->almacenDestinoCompra_id;
+            $pedidoCompra->estadoPedido_id = $request->estadoPedido_id; 
+            $pedidoCompra->fecha = $request->fecha;
+            $pedidoCompra->update();
+             
+            DB::commit(); 
+            return redirect()->route('pedidos_compra.index')->with('status', 'El pedido fue actualizado con éxito');
+        }catch(\Exception $e){
+            DB::rollback(); 
+            return redirect()->route('pedidos_compra.index')->with('status', 'Ha ocurrido un error al actualizar el pedido. '. 'Mensaje de error: '.$e);
+        }
+        
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\PedidoCompra  $pedidoCompra
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(PedidoCompra $pedidoCompra)
+    { 
+        
+        $this->authorize('modificarPanelPedidos', $pedidoCompra);
+
+        $pedidoCompra->delete(); 
+        return redirect()->route('pedidos_compra.index')->with('status', 'El pedido fue eliminado con éxito');
+    }
+
+
+    /* Funciones adicionales */
+     //Utilizaremos esta funcion para buscar el precio del producto seleccionado en el escenario de creación de pedidos de compra
+     public function buscarPrecioProducto(Request $request){
         
         $producto = Producto::where('id', '=', $request->producto_id)
                             ->get()
@@ -161,177 +339,6 @@ class PedidoCompraController extends Controller
  
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(SavePedidoCompraRequest $request)
-    {   
-          
-        $this->authorize('escribirPanelPedidos', new PedidoCompra);
-
-        try{
-            DB::beginTransaction();
-
-            $pedidoCompra = new PedidoCompra([
-                'serie' => $this->serie,
-                'numero' => PedidoCompra::max('numero')? (PedidoCompra::max('numero') +1): 1,
-                'fecha' => $request->fecha,
-                'observaciones' => $request->observaciones,
-                'proveedor_id' => $request->proveedor_id,
-                'almacenDestinoCompra_id' => $request->almacenDestinoCompra_id,
-                'estadoPedido_id'=> $request->estadoPedido_id,
-                'usuario_id' => Auth::user()->id
-            ]);$pedidoCompra->save();
 
 
-            foreach($request->lineas as  $linea){
-               
-
-                $lineaPedido = new PedidoCompraLinea([
-                    'cantidad' => $linea['cantidad'],
-                    'precio' => $linea['precio'],
-                    'importe' => $linea['importe'],
-                    'cantidadRecibida' => 0,
-                    'pedidoCompra_id' => $pedidoCompra->id, 
-                    'lineaPedidoEstado_id' => $linea['estadoLinea_id'],
-                    'producto_id' => $linea['producto_id']
-                ]);$lineaPedido->save(); 
- 
-                $lineaPedido = null;
-            }
-
-            DB::commit();
-                
-            return redirect()->route('pedidos_compra.index')->with('status', 'El pedido fue creado con éxito');
-        }catch(\Exception $e){
-            DB::rollback(); 
-            return redirect()->route('pedidos_compra.index')->with('status', 'Ha ocurrido un error al crear el pedido. '. 'Mensaje de error: '.$e);
-        }
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\PedidoCompra  $pedidoCompra
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PedidoCompra $pedidoCompra)
-    {
-        return view('pedidos.show', [
-            'pedido_compra' => $pedidoCompra
-        ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\PedidoCompra  $pedidoCompra
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PedidoCompra $pedidoCompra)
-    {   
-        $this->authorize('escribirPanelPedidos', new PedidoCompra);
-
-        return view('pedidos.edit', [
-            'pedido_compra'=> $pedidoCompra,  
-            'lineas' => $pedidoCompra->lineas,
-            'productos' => Producto::all(), 
-            'proveedores' => Proveedor::all(),
-            'almacenes' => Almacen::all(), 
-            'estados' => PedidoCompraEstado::all(),
-            'linea_estados' => PedidoCompraLineaEstado::all()
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\PedidoCompra  $pedidoCompra
-     * @return \Illuminate\Http\Response
-     */
-    public function update(SavePedidoCompraRequest $request, PedidoCompra $pedidoCompra)
-    { 
-        $this->authorize('escribirPanelPedidos', new PedidoCompra);
-
-        try{
-
-            DB::beginTransaction();
-
-            //Creamos un array y obtenemos los distintos ids que devuelve el formulario
-            //Es decir, si alguna línea tiene id significa que ya fue creada previamente
-            //En caso de que haya sido borrada alguna, lo detectaremos borrando las lineas
-            //que pertenezcan al pedido de compra en cuestión y que no estén en este array de ids
-            $ids = array();
-            foreach($request->lineas as $linea){ 
-                if(array_key_exists('id', $linea)){
-                    array_push($ids, $linea['id']);
-                } 
-            }
-
-            //Borramos las lineas de pedido que no pertenezcan al array
-            $lineas = PedidoCompraLinea::where('pedidoCompra_id', '=', $pedidoCompra->id)
-                                        ->whereNotIn('id', $ids)->delete();
-
-            // Creamos las lineas que se han añadido y que carecen de id
-            // Si carecen de id, significa que se han añadido a posteriori de crear el pedido de compra
-                foreach($request->lineas as $linea){ 
-                    if(!array_key_exists('id', $linea)){
- 
-                        $lineaPedido = new PedidoCompraLinea([
-                            'cantidad' => $linea['cantidad'],
-                            'precio' => $linea['precio'],
-                            'importe' => $linea['importe'],
-                            'cantidadRecibida' => 0,
-                            'pedidoCompra_id' => $pedidoCompra->id, 
-                            'lineaPedidoEstado_id' => $linea['estadoLinea_id'],
-                            'producto_id' => $linea['producto_id']
-                        ]);$lineaPedido->save();
-
- 
-                        $lineaPedido = null;
-                    } 
-               } //Fin foreach
-
-            //Actualizamos las lineas del pedido de compra
-            foreach($request->lineas as $linea){ 
-                if(array_key_exists('id', $linea)){
-                    PedidoCompraLinea::find($linea['id'])->update($linea);
-                } 
-            }
-
-            //Actualizamos el pedido de venta 
-            $pedidoCompra->observaciones = $request->observaciones;
-            $pedidoCompra->proveedor_id = $request->proveedor_id; 
-            $pedidoCompra->almacenDestinoCompra_id = $request->almacenDestinoCompra_id;
-            $pedidoCompra->estadoPedido_id = $request->estadoPedido_id; 
-            $pedidoCompra->fecha = $request->fecha;
-            $pedidoCompra->update();
-             
-            DB::commit(); 
-            return redirect()->route('pedidos_compra.index')->with('status', 'El pedido fue actualizado con éxito');
-        }catch(\Exception $e){
-            DB::rollback(); 
-            return redirect()->route('pedidos_compra.index')->with('status', 'Ha ocurrido un error al actualizar el pedido. '. 'Mensaje de error: '.$e);
-        }
-        
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\PedidoCompra  $pedidoCompra
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PedidoCompra $pedidoCompra)
-    { 
-        $this->authorize('escribirPanelPedidos', new PedidoCompra);
-        
-        $pedidoCompra->delete(); 
-        return redirect()->route('pedidos_compra.index')->with('status', 'El pedido fue eliminado con éxito');
-    }
 }

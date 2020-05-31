@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckProducto;
 use App\Http\Requests\SaveMarcaRequest; 
 use App\Marca;
 use Illuminate\Http\Request;
@@ -9,6 +10,11 @@ use Illuminate\Http\Request;
 class MarcaController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(CheckProducto::class);
+    }
+    
     
     /**
      * Display a listing of the resource.
@@ -40,8 +46,10 @@ class MarcaController extends Controller
      */
     public function store(SaveMarcaRequest $request)
     {
-        Marca::create($request->validated());
+        $this->authorize('modificarPanelProductos', new Marca);
 
+
+        Marca::create($request->validated()); 
         return redirect()->route('marcas.index')->with('status', 'La marca fue creada con éxito');
     }
 
@@ -80,8 +88,10 @@ class MarcaController extends Controller
      */
     public function update(SaveMarcaRequest $request, Marca $marca)
         {
-            $marca->update($request->validated());
-            
+            $this->authorize('modificarPanelProductos', $marca);
+
+
+            $marca->update($request->validated()); 
             return redirect()->route('marcas.index')->with('status', 'La marca fue actualizada con éxito');
     }
 
@@ -92,7 +102,9 @@ class MarcaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Marca $marca)
-    {    
+    { 
+        $this->authorize('modificarPanelProductos', $marca);
+        
         $marca->delete(); 
         return redirect()->route('marcas.index')->with('status', 'La marca fue eliminada con éxito');
     }

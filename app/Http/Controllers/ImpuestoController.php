@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckProducto;
 use App\Http\Requests\SaveImpuestoRequest;
 use App\Impuesto;
 use Illuminate\Http\Request;
 
 class ImpuestoController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware(CheckProducto::class);
+    }
     
     /**
      * Display a listing of the resource.
@@ -39,8 +45,9 @@ class ImpuestoController extends Controller
      */
     public function store(SaveImpuestoRequest $request)
     { 
-        Impuesto::create($request->validated());
+        $this->authorize('modificarPanelProductos', new Impuesto);
 
+        Impuesto::create($request->validated()); 
         return redirect()->route('impuestos.index')->with('status', 'El impuesto fue creado con éxito');
     }
 
@@ -79,6 +86,9 @@ class ImpuestoController extends Controller
      */
     public function update(SaveImpuestoRequest $request, Impuesto $impuesto)
     { 
+        $this->authorize('modificarPanelProductos', $impuesto);
+
+
         $impuesto->update($request->validated());   
         return redirect()->route('impuestos.index')->with('status', 'El impuesto fue actualizada con éxito'); 
     }
@@ -91,6 +101,9 @@ class ImpuestoController extends Controller
      */
     public function destroy(Impuesto $impuesto)
     { 
+        $this->authorize('modificarPanelProductos', $impuesto);
+
+
         $impuesto->delete(); 
         return redirect()->route('impuestos.index')->with('status', 'El impuesto fue eliminada con éxito');     
     }

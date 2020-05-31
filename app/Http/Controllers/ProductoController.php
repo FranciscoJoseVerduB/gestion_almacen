@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckProducto;
 use App\Http\Requests\SaveProductoRequest;
 use App\Impuesto;
 use App\Marca;
@@ -12,6 +13,10 @@ use Illuminate\Http\Request;
 class ProductoController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(CheckProducto::class);
+    }
     
     /**
      * Display a listing of the resource.
@@ -32,7 +37,8 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    { 
+
         return view('articulos.productos.create', [
             'producto'=> new Producto,
             'marcas' => Marca::all(),
@@ -49,6 +55,8 @@ class ProductoController extends Controller
      */
     public function store(SaveProductoRequest $request)
     { 
+        $this->authorize('modificarPanelProductos', new Producto);
+
         Producto::create($request->validated());
         return redirect()->route('productos.index')->with('status', 'El producto fue creado con éxito');
     }
@@ -74,6 +82,7 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
+
         return view('articulos.productos.edit', [
             'producto' =>$producto, 
             'marcas' => Marca::all(),
@@ -91,6 +100,9 @@ class ProductoController extends Controller
      */
     public function update(SaveProductoRequest $request, Producto $producto)
     {
+        $this->authorize('modificarPanelProductos', $producto);
+
+
         $producto->update($request->validated()); 
         return redirect()->route('productos.index')->with('status', 'El producto fue actualizado con éxito');
     }
@@ -103,6 +115,8 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
+        $this->authorize('modificarPanelProductos',  $producto);
+
         $producto->delete(); 
         return redirect()->route('productos.index')->with('status', 'El producto fue eliminado con éxito');
     }

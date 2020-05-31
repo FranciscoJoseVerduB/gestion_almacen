@@ -51,6 +51,8 @@ class AlmacenController extends Controller
      */
     public function store(SaveAlmacenRequest $request)
     {
+        $this->authorize('modificarPanelAlmacenes', new Almacen);
+
         try{
             $direccion = new Direccion([
                 'direccion' => $request['direccion'],
@@ -132,6 +134,7 @@ class AlmacenController extends Controller
      */
     public function update(SaveAlmacenRequest $request, Almacen $almacen)
     {
+        $this->authorize('modificarPanelAlmacenes', $almacen);
         
         $almacen->sujeto->direccion->direccion = $request->direccion;
         $almacen->sujeto->direccion->poblacion = $request->poblacion;
@@ -167,6 +170,8 @@ class AlmacenController extends Controller
      */
     public function destroy(Almacen $almacen)
     {        
+        $this->authorize('modificarPanelAlmacenes', $almacen);
+
         $almacen->delete(); 
         return redirect()->route('almacenes.index')->with('status', 'El almacen fue eliminado con éxito');
     }

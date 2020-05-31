@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Subfamilia;
 use App\Familia;
+use App\Http\Middleware\CheckProducto;
 use App\Http\Requests\SaveSubfamiliaRequest;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,11 @@ class SubfamiliaController extends Controller
 {
     
 
+    public function __construct()
+    {
+        $this->middleware(CheckProducto::class);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -41,8 +47,9 @@ class SubfamiliaController extends Controller
      */
     public function store(SaveSubfamiliaRequest $request)
     { 
-        Subfamilia::create($request->validated());
+        $this->authorize('modificarPanelProductos', new Subfamilia);
 
+        Subfamilia::create($request->validated()); 
         return redirect()->route('subfamilias.index')->with('status', 'La subfamilia fue creada con éxito');
     }
 
@@ -83,6 +90,8 @@ class SubfamiliaController extends Controller
      */
     public function update(SaveSubfamiliaRequest $request, Subfamilia $subfamilia)
     { 
+        $this->authorize('modificarPanelProductos', $subfamilia);
+        
         $subfamilia->update($request->validated());   
         return redirect()->route('subfamilias.index')->with('status', 'La subfamilia fue actualizada con éxito'); 
     }
@@ -95,6 +104,8 @@ class SubfamiliaController extends Controller
      */
     public function destroy(Subfamilia $subfamilia)
     { 
+        $this->authorize('modificarPanelProductos', $subfamilia);
+        
         $subfamilia->delete(); 
         return redirect()->route('subfamilias.index')->with('status', 'La subfamilia fue eliminada con éxito');    }
 }

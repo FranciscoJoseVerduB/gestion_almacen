@@ -19,11 +19,8 @@ class RecepcionPolicy
     {
          
     }
-
-    public function verPanelRecepciones(User $user){
-        return (bool) $user->rol->permisosRol->verPanelRecepciones;
-    }
-    public function escribirPanelRecepciones(User $user){
-        return (bool) $user->rol->permisosRol->verPanelRecepciones && (bool)$user->rol->permisosRol->modificarDatosMaestros;
+ 
+    public function modificarPanelRecepciones(User $user){
+        return (bool) $user->rol->permisosRol->modificarPanelRecepciones;
     }
 }

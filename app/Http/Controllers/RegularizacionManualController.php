@@ -44,8 +44,7 @@ class RegularizacionManualController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        $this->authorize('escribirPanelStock');
+    { 
 
         return view('regularizaciones.create', [
             'regularizacion_manual'=> new RegularizacionManual,
@@ -63,7 +62,7 @@ class RegularizacionManualController extends Controller
      */
     public function store(SaveRegularizacionRequest $request)
     {
-        $this->authorize('escribirPanelStock');
+        $this->authorize('modificarPanelStock', new RegularizacionManual);
 
         try{
             DB::beginTransaction();
@@ -155,9 +154,7 @@ class RegularizacionManualController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(RegularizacionManual $regularizacionManual)
-    {
-        $this->authorize('escribirPanelStock');
-        
+    { 
         return view('regularizaciones.edit', [
             'regularizacion_manual'=> $regularizacionManual,
             'lineas' => $regularizacionManual->lineas,
@@ -175,7 +172,7 @@ class RegularizacionManualController extends Controller
      */
     public function update(SaveRegularizacionRequest $request, RegularizacionManual $regularizacionManual)
     {
-        $this->authorize('escribirPanelStock');
+        $this->authorize('modificarPanelStock', $regularizacionManual);
 
         try{
 
@@ -276,9 +273,9 @@ class RegularizacionManualController extends Controller
      */
     public function destroy(RegularizacionManual $regularizacionManual)
     {
-        $this->authorize('escribirPanelStock');
+        $this->authorize('modificarPanelStock', $regularizacionManual); 
         
-        $regularizacionManual->delete();
+         $regularizacionManual->delete();
         return redirect()->route('regularizaciones_manual.index')->with('status', 'La regularizacion fue eliminada con éxito');
     }
 

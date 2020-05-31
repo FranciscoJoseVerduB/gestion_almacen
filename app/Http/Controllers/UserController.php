@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckUsuario;
 use App\Http\Requests\SaveUserRequest;
 use App\User;
 use App\Rol;
@@ -10,6 +11,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 { 
+
+    public function __construct()
+    {
+        $this->middleware(CheckUsuario::class);
+    }
+   
 
     /**
      * Display a listing of the resource.
@@ -42,11 +49,11 @@ class UserController extends Controller
      */
     public function store(SaveUserRequest $request)
     {
+        $this->authorize('modificarPanelUsuarios', new User);
+
         $user = new User($request->validated());
         $user->password = Hash::make($request->password);
-        $user->save();
-
-
+        $user->save(); 
 
         return redirect()->route('usuarios.index')->with('status', 'El usuario fue creado con éxito');
     }
@@ -88,6 +95,8 @@ class UserController extends Controller
      */
     public function update(SaveUserRequest $request, User $usuario)
     {
+        $this->authorize('modificarPanelUsuarios', $usuario);
+
         $usuario->update($request->validated());   
         return redirect()->route('usuarios.index')->with('status', 'El usuario fue actualizado con éxito'); 
     }
@@ -100,6 +109,8 @@ class UserController extends Controller
      */
     public function destroy(User $usuario)
     {
+        $this->authorize('modificarPanelUsuarios', $usuario);
+
         $usuario->delete(); 
         return redirect()->route('usuarios.index')->with('status', 'El usuario fue eliminado con éxito');     
     }

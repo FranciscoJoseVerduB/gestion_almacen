@@ -104,11 +104,9 @@
         </thead>
         <tbody> 
 
-        @can('verPanelRecepciones')
             @if($btnText ==='Editar')
                 @include('recepciones.lineas._table-edit')  
-            @endif
-        @endcan
+            @endif 
 
         </tbody>
     </table>

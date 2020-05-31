@@ -18,16 +18,9 @@ class PedidoPolicy
     public function __construct()
     {
         //
-    } 
-    public function view(User $user){ 
-        return true;
-    }
-
-    public function verPanelPedidos(User $user){ 
-        return (bool) $user->rol->permisosRol->verPanelPedidos;
-    }
-    public function escribirPanelPedidos(User $user){
-        return (bool) $user->rol->permisosRol->verPanelPedidos && (bool)$user->rol->permisosRol->modificarDatosMaestros;
+    }  
+    public function modificarPanelPedidos(User $user){
+        return (bool) $user->rol->permisosRol->modificarPanelPedidos;
     } 
 
 }

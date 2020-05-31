@@ -48,8 +48,8 @@ class RecepcionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        $this->authorize('escribirPanelRecepciones', new Recepcion());
+    { 
+      
 
         return view('recepciones.create', [
             'recepcion'=> new Recepcion,  
@@ -69,7 +69,7 @@ class RecepcionController extends Controller
      */
     public function store(SaveRecepcionRequest $request)
     { 
-        $this->authorize('escribirPanelRecepciones', new Recepcion());
+        $this->authorize('modificarPanelRecepciones', new Recepcion);
 
         try{
             DB::beginTransaction();
@@ -154,8 +154,7 @@ class RecepcionController extends Controller
      */
     public function edit(Recepcion $recepcion)
     { 
-        $this->authorize('escribirPanelRecepciones', $recepcion);
-
+        
         return view('recepciones.edit', [
             'recepcion'=> $recepcion,  
             'lineas' => $recepcion->lineas,
@@ -174,7 +173,7 @@ class RecepcionController extends Controller
      */
     public function update(SaveRecepcionRequest $request, Recepcion $recepcion)
     {
-        $this->authorize('escribirPanelRecepciones', $recepcion);
+        $this->authorize('modificarPanelRecepciones', $recepcion);
 
         try{
 
@@ -290,7 +289,7 @@ class RecepcionController extends Controller
      */
     public function destroy(Recepcion $recepcion)
     { 
-        $this->authorize('escribirPanelRecepciones', $recepcion);
+        $this->authorize('modificarPanelRecepciones', $recepcion);
 
         $recepcion->delete(); 
         return redirect()->route('recepciones.index')->with('status', 'La recepcion fue eliminado con éxito');

@@ -17,11 +17,8 @@ class UsuarioPolicy
     public function __construct()
     {
         //
-    }
-    public function verPanelUsuarios(User $user){
-        return (bool) $user->rol->permisosRol->verPanelUsuarios;
-    }
-    public function escribirPanelUsuarios(User $user){
-        return (bool) $user->rol->permisosRol->verPanelUsuarios && (bool)$user->rol->permisosRol->modificarDatosMaestros;
+    } 
+    public function modificarPanelUsuarios(User $user){
+        return (bool) $user->rol->permisosRol->modificarPanelUsuarios;
     }
 }

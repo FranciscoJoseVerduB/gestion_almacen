@@ -18,7 +18,7 @@ class ProductoPolicy
     {
         //
     }
-    public function escribirProductos(User $user){
-        return  (bool)$user->rol->permisosRol->modificarDatosMaestros;
+    public function modificarPanelProductos(User $user){
+        return  (bool)$user->rol->permisosRol->modificarPanelProductos;
     }
 }

@@ -17,12 +17,9 @@ class ProveedorPolicy
     public function __construct()
     {
         //
-    } 
-    public function verPanelProveedores(User $user){
-        return (bool) $user->rol->permisosRol->verPanelProveedores;
-    }
-    public function escribirPanelProveedores(User $user){
-        return (bool) $user->rol->permisosRol->verPanelProveedores && (bool)$user->rol->permisosRol->modificarDatosMaestros;
+    }  
+    public function modificarPanelProveedores(User $user){
+        return (bool) $user->rol->permisosRol->modificarPanelProveedores;
     }
 
 }

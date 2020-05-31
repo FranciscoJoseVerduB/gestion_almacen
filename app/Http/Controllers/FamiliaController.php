@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Familia;
+use App\Http\Middleware\CheckProducto;
 use App\Http\Requests\SaveFamiliaRequest;
 use FamiliaSeeder;
 use Illuminate\Http\Request;
 
 class FamiliaController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware(CheckProducto::class);
+    }
     
     /**
      * Display a listing of the resource.
@@ -40,8 +46,9 @@ class FamiliaController extends Controller
      */
     public function store(SaveFamiliaRequest $request)
     { 
-        Familia::create($request->validated());
+        $this->authorize('modificarPanelProductos', new Familia);
 
+        Familia::create($request->validated()); 
         return redirect()->route('familias.index')->with('status', 'La familia fue creada con éxito');
     }
 
@@ -80,8 +87,9 @@ class FamiliaController extends Controller
      */
     public function update(SaveFamiliaRequest $request, Familia $familia)
     { 
-        $familia->update($request->validated());
-            
+        $this->authorize('modificarPanelProductos', $familia);
+
+        $familia->update($request->validated()); 
         return redirect()->route('familias.index')->with('status', 'La familia fue actualizada con éxito');
     }
 
@@ -93,8 +101,9 @@ class FamiliaController extends Controller
      */
     public function destroy(Familia $familia)
     { 
-        $familia->delete();
+        $this->authorize('modificarPanelProductos', $familia);
 
+        $familia->delete(); 
         return redirect()->route('familias.index')->with('status', 'La familia fue eliminada con éxito');
     }
 }

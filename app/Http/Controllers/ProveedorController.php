@@ -34,8 +34,7 @@ class ProveedorController extends Controller
      */
     public function create()
     {
-        $this->authorize('escribirPanelProveedores', new Proveedor());
-
+         
         return view('proveedores.create', [
             'proveedor'=> new Proveedor(), 
             'sujeto' => new Sujeto(),
@@ -51,7 +50,7 @@ class ProveedorController extends Controller
      */
     public function store(SaveProveedorRequest $request)
     { 
-        $this->authorize('escribirPanelProveedores', new Proveedor());
+        $this->authorize('modificarPanelProveedores', new Proveedor);
 
 
         try{
@@ -116,9 +115,7 @@ class ProveedorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Proveedor $proveedor)
-    {
-        $this->authorize('escribirPanelProveedores', new Proveedor());
-
+    { 
         return view('proveedores.edit', [
             'proveedor' =>$proveedor,  
             'sujeto' => $proveedor->sujeto,
@@ -135,7 +132,7 @@ class ProveedorController extends Controller
      */
     public function update(SaveProveedorRequest $request, Proveedor $proveedor)
     {   
-        $this->authorize('escribirPanelProveedores', new Proveedor());
+        $this->authorize('modificarPanelProveedores', $proveedor);
 
 
         $proveedor->sujeto->direccion->direccion = $request->direccion;
@@ -170,7 +167,7 @@ class ProveedorController extends Controller
      */
     public function destroy(Proveedor $proveedor)
     {
-        $this->authorize('escribirPanelProveedores', new Proveedor());
+        $this->authorize('modificarPanelProveedores', $proveedor);
 
         $proveedor->delete(); 
         return redirect()->route('proveedores.index')->with('status', 'El proveedor fue eliminado con éxito');

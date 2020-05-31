@@ -17,12 +17,9 @@ class RecursoPolicy
     public function __construct()
     {
         //
-    }
-    public function verPanelRecursos(User $user){
-        return (bool) $user->rol->permisosRol->verPanelRecursos;
-    }
-    public function escribirPanelRecursos(User $user){
-        return (bool) $user->rol->permisosRol->verPanelRecursos && (bool)$user->rol->permisosRol->modificarDatosMaestros;
+    } 
+    public function modificarPanelRecursos(User $user){
+        return (bool) $user->rol->permisosRol->modificarPanelRecursos;
     }
 
 }

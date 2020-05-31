@@ -50,6 +50,8 @@ class RolController extends Controller
      */
     public function store(SaveRolRequest $request)
     {
+        $this->authorize('modificarPanelUsuarios', new Rol);
+
         try{
             DB::beginTransaction();
 
@@ -137,6 +139,8 @@ class RolController extends Controller
      */
     public function update(SaveRolRequest $request, Rol $rol)
     { 
+        $this->authorize('modificarPanelUsuarios', $rol);
+
         $rol->codigo = $request->codigo;
         $rol->nombre = $request->nombre;
         $rol->permisosRol->permisoAdministrador = $request->permisoAdministrador? 1: 0;
@@ -178,6 +182,8 @@ class RolController extends Controller
      */
     public function destroy(Rol $rol)
     {
+        $this->authorize('modificarPanelUsuarios', $rol);
+
         $rol->delete(); 
         return redirect()->route('roles.index')->with('status', 'El rol fue eliminado con éxito');     
     }
