@@ -25,7 +25,8 @@ class SaveSubfamiliaRequest extends FormRequest
     { 
         return [
             'codigo' =>'required|max:20|unique:subfamilias'.($this->subfamilia? ',codigo,'.$this->subfamilia->id : ''),
-            'nombre' =>'required|max:50'
+            'nombre' =>'required|max:50',
+            'familia_id' => 'required'
         ];
     }
     
@@ -33,6 +34,7 @@ class SaveSubfamiliaRequest extends FormRequest
         return [
             'codigo' =>'La subfamilia necesita un codigo',
             'nombre' =>'La subfamilia necesita un nombre', 
+            'familia_id' => 'La subfamilia necesita una familia'
         ];
     }
 }

@@ -36,6 +36,7 @@ class SubfamiliaController extends Controller
     {
         return view('articulos.subfamilias.create', [
             'subfamilia'=> new Subfamilia,
+            'familias' => Familia::all()
         ]);   
     }
 

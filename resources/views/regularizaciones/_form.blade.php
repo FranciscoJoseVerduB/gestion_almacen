@@ -36,8 +36,8 @@
 
         <textarea class="clase-cajatexto" 
                 name="observaciones" 
-                id="observaciones">
-                {{old('observaciones', $regularizacion_manual->observaciones)}}
+                id="observaciones"
+                >{{old('observaciones', $regularizacion_manual->observaciones)}}
             </textarea>  
     </div>
     

@@ -31,8 +31,7 @@
         <table class="table  table-sm table-striped table-bordered table-hover shadow">
             <thead  class="bg-info text-white">
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Serie</th>
+                <th scope="col">#</th> 
                 <th scope="col">Numero</th> 
                 <th scope="col">Fecha</th>    
                 <th scope="col">Almacen</th> 
@@ -43,9 +42,8 @@
             <tbody>
             @forelse($regularizaciones_manual as $regularizacion_manual) 
             <tr>
-                <th scope="row">{{$loop->iteration}}</th>
-                <td> {{$regularizacion_manual->serie}} </td>
-                <td> {{$regularizacion_manual->numero}} </td>  
+                <th scope="row">{{$loop->iteration}}</th> 
+                <td> {{$regularizacion_manual->serie.'/'.$regularizacion_manual->numero}} </td>  
                 <td> {{$regularizacion_manual->fecha}} </td>  
                 <td> {{$regularizacion_manual->almacen->sujeto->nombre}} </td>      
                 <td> {{$regularizacion_manual->lineas->count()}} </td>   

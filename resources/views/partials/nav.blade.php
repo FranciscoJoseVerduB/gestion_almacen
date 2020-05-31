@@ -35,14 +35,14 @@
                 <li class="nav-item dropdown"> 
                     <a class="nav-link dropdown-toggle {{ setActive('productos.*') }}  {{ setActive('articulos') }}" 
                         href="#"
-                        id="navbarDropdown" 
+                        id="navbarDropdownArticulos" 
                         role="button" 
                         data-toggle="dropdown" 
                         aria-haspopup="true" 
                         aria-expanded="false">
                         @lang('Articulos')
                     </a> 
-                    <div class="dropdown-menu  " aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu  " aria-labelledby="navbarDropdownArticulos">
                             <a class="dropdown-item" href="{{route('impuestos.index')}}">Impuestos<a>    
                             <a class="dropdown-item" href="{{route('familias.index')}}">Familias</a>
                             <a class="dropdown-item" href="{{route('marcas.index')}}">Marcas</a>
@@ -54,6 +54,8 @@
                     </div>
                 </li> 
             @endcan
+
+            <!--
             @can('verPanelPedidos', new App\PedidoCompra )
                 <li class="nav-item  ">
                     <a class="nav-link {{ setActive('pedidos_compra.*') }}" href="{{route('pedidos_compra.index')}}">
@@ -67,7 +69,7 @@
                         @lang('Recepciones')
                     </a>
                 </li> 
-            @endcan
+            @endcan 
             
             @can('verPanelProveedores', new App\Proveedor)
                 <li class="nav-item  ">
@@ -76,7 +78,7 @@
                     </a>
                 </li> 
             @endcan
-
+            
             @can('verPanelAlmacenes', new App\Almacen)
                 <li class="nav-item  ">
                     <a class="nav-link {{ setActive('almacenes.*') }}" href="{{route('almacenes.index')}}">
@@ -84,7 +86,64 @@
                     </a>
                 </li> 
             @endcan
+            -->
 
+            
+            
+
+
+            @can('verPanelUbicaciones', new App\Ubicacion)
+                <li class="nav-item dropdown"> 
+                    <a class="nav-link dropdown-toggle {{ setActive('almacenes.*') }}  {{ setActive('proveedores') }}" 
+                        href="#"
+                        id="navbarDropdownUbicaciones" 
+                        role="button" 
+                        data-toggle="dropdown" 
+                        aria-haspopup="true" 
+                        aria-expanded="false">
+                        @lang('Ubicaciones')
+                    </a> 
+                    <div class="dropdown-menu  " aria-labelledby="navbarDropdownUbicaciones">
+                        @can('verPanelAlmacenes', new App\Almacen)
+                            <a class="dropdown-item" href="{{route('almacenes.index')}}">@lang('Almacenes')<a>  
+                        @endcan
+                        @can('verPanelProveedores', new App\Proveedor)  
+                            <a class="dropdown-item" href="{{route('proveedores.index')}}">@lang('Proveedores')</a>  
+                        @endcan
+                    </div>
+                </li> 
+            @endcan
+
+            @can('verPanelProcesos', new App\Proceso)
+            <li class="nav-item dropdown"> 
+                <a class="nav-link dropdown-toggle 
+                        {{ setActive('recepciones.*') }}  
+                        {{ setActive('pedidos_compra.*') }}
+                        {{ setActive('stocks.*') }}" 
+                    href="#"
+                    id="navbarDropdownProcesos" 
+                    role="button" 
+                    data-toggle="dropdown" 
+                    aria-haspopup="true" 
+                    aria-expanded="false">
+                    @lang('Procesos')
+                </a> 
+                <div class="dropdown-menu  " aria-labelledby="navbarDropdownProcesos">
+                    @can('verPanelPedidos', new App\PedidoCompra )
+                        <a class="dropdown-item" href="{{route('pedidos_compra.index')}}">@lang('Pedidos')<a>  
+                    @endcan  
+                    @can('verPanelRecepciones', new App\Recepcion )
+                        <a class="dropdown-item" href="{{route('recepciones.index')}}">@lang('Recepciones')</a>
+                    @endcan
+                    @can('verPanelStock', new App\Stock )
+                        <a class="dropdown-item" href="{{route('stocks.index')}}">@lang('Stock')</a>  
+                    @endcan
+                </div>
+            </li> 
+        @endcan
+
+
+            <!--
             @can('verPanelStock', new App\Stock )
                 <li class="nav-item  ">
                     <a class="nav-link {{ setActive('stocks.*') }}" href="{{route('stocks.index')}}">
@@ -92,7 +151,7 @@
                     </a>
                 </li> 
             @endcan
-
+            -->
             @can('verPanelUsuarios', new App\User)
                 <li class="nav-item  ">
                     <a class="nav-link {{ setActive('usuarios.*') }}  {{ setActive('roles.*') }}" href="{{route('usuarios.index')}}">
@@ -100,14 +159,31 @@
                     </a>
                 </li>  
             @endcan
+
+            
+            <li class="nav-item  "> 
+                <a class="nav-link" 
+                    href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form> 
+            </li> 
          </ul> 
+
          <form class="form-inline  my-2 my-lg-0">
-            <input class="form-control mr-sm-1" 
+            <input class="form-control mr-sm-1 ml-1" 
                     name="buscarpor" 
                     type="search" 
                     placeholder="Buscar" 
                     aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" 
+                    hidden
+                    type="submit">Buscar</button>
           </form>
     </div>
 

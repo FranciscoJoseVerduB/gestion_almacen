@@ -11,20 +11,21 @@
                 <p class="lead text-secondary">Gestiona tu almacén cómodamente</p>
                 <a class="btn btn-lg btn-block btn-outline-dark shadow-sm"
                     href="{{ route('articulos') }}" 
-                    >Articulos 
+                    >@lang('Articulos') 
+                </a> 
+
+                <a class="btn btn-lg btn-block  btn-outline-dark shadow-sm" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                        @lang('Logout')
                 </a>
-                <a class="btn btn-lg btn-block  btn-outline-dark shadow-sm"
-                    href="{{ route('productos.index') }}"
-                    >Productos
-                </a>
-            </div>
-            <!--
-            <div class="col-12 col-lg-6">
-                <img class="img-fluid mb-4" 
-                    src="/img/home.svg" 
-                    alt="Desarrollo Web">
-            </div>
-        -->
+
+             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                 @csrf
+             </form>
+
+            </div> 
+
         <div class="col-12 col-lg-6 p-4">
             <img class="img-fluid mb-4" 
                 src="/img/icono-gestionalo.png"

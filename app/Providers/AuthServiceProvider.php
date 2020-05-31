@@ -9,17 +9,21 @@ use App\Marca;
 use App\PedidoCompra;
 use App\Policies\AlmacenPolicy;
 use App\Policies\PedidoPolicy;
+use App\Policies\ProcesoPolicy;
 use App\Policies\ProductoPolicy;
 use App\Policies\ProveedorPolicy;
 use App\Policies\RecepcionPolicy;
 use App\Policies\RecursoPolicy;
 use App\Policies\StockPolicy;
+use App\Policies\UbicacionPolicy;
 use App\Policies\UsuarioPolicy;
+use App\Proceso;
 use App\Proveedor;
 use App\Recepcion;
 use App\RegularizacionManual;
 use App\Rol;
 use App\Subfamilia;
+use App\Ubicacion;
 use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -49,6 +53,9 @@ class AuthServiceProvider extends ServiceProvider
         Impuesto::class => ProductoPolicy::class,
         Familia::class => ProductoPolicy::class,
         Subfamilia::class => ProductoPolicy::class,
+
+        Ubicacion::class => UbicacionPolicy::class,
+        Proceso::class => ProcesoPolicy::class,
 
         
     ];

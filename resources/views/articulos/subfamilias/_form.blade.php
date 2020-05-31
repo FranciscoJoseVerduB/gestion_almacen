@@ -21,10 +21,10 @@
     </div>
  
     <div class="form-group">
-        <label for="marca_id"> Familia de la subfamilia </label> 
+        <label for="familia_id"> Familia de la subfamilia </label> 
         <select class="clase-cajatexto"
-            id="marca_id" 
-            name="marca_id" > 
+            id="familia_id" 
+            name="familia_id" > 
             
             @foreach ($familias as $familia)
                 <option 

@@ -70,8 +70,8 @@
 
         <textarea class="clase-cajatexto" 
                 name="observaciones" 
-                id="observaciones">
-                {{old('observaciones', $recepcion->observaciones)}}
+                id="observaciones"
+                >{{old('observaciones', $recepcion->observaciones)}}
             </textarea>  
     </div>
     

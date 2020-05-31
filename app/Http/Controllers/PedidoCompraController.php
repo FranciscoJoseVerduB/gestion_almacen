@@ -81,7 +81,7 @@ class PedidoCompraController extends Controller
                 'serie' => $this->serie,
                 'numero' => PedidoCompra::max('numero')? (PedidoCompra::max('numero') +1): 1,
                 'fecha' => $request->fecha,
-                'observaciones' => $request->observaciones,
+                'observaciones' => trim($request->observaciones),
                 'proveedor_id' => $request->proveedor_id,
                 'almacenDestinoCompra_id' => $request->almacenDestinoCompra_id,
                 'estadoPedido_id'=> $request->estadoPedido_id,
@@ -207,7 +207,7 @@ class PedidoCompraController extends Controller
             }
 
             //Actualizamos el pedido de venta 
-            $pedidoCompra->observaciones = $request->observaciones;
+            $pedidoCompra->observaciones = trim($request->observaciones);
             $pedidoCompra->proveedor_id = $request->proveedor_id; 
             $pedidoCompra->almacenDestinoCompra_id = $request->almacenDestinoCompra_id;
             $pedidoCompra->estadoPedido_id = $request->estadoPedido_id; 

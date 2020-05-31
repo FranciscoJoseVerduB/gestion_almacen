@@ -13,6 +13,7 @@ use App\Stock;
 use App\TipoMovimientoAlmacen;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RegularizacionManualController extends Controller

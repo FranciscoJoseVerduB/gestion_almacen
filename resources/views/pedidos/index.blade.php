@@ -25,8 +25,8 @@
             <thead  class="bg-info text-white">
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Serie</th>
-                <th scope="col">Numero</th> 
+                <th scope="col">Numero</th>
+                <th scope="col">Estado</th> 
                 <th scope="col">Fecha</th>  
                 <th scope="col">Proveedor</th>  
                 <th scope="col">Lineas</th>  
@@ -37,8 +37,8 @@
             @forelse($pedidos_compra as $pedido_compra) 
             <tr>
                 <th scope="row">{{$loop->iteration}}</th>
-                <td> {{$pedido_compra->serie}} </td>
-                <td> {{$pedido_compra->numero}} </td>  
+                <td> {{$pedido_compra->serie. '/'.$pedido_compra->numero}} </td>
+                <td> {{$pedido_compra->estado->estado}} </td>  
                 <td> {{$pedido_compra->fecha}} </td>  
                 <td> {{$pedido_compra->proveedor->sujeto->nombre}} </td>      
                 <td> {{$pedido_compra->lineas->count()}} </td>   
