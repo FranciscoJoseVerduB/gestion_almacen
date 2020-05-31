@@ -18,6 +18,11 @@ class UsuarioPolicy
     {
         //
     } 
+    
+    public function verPanelUsuarios(User $user){
+        return (bool) $user->rol->permisosRol->verPanelUsuarios;
+    }
+    
     public function modificarPanelUsuarios(User $user){
         return (bool) $user->rol->permisosRol->modificarPanelUsuarios;
     }

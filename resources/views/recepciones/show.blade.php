@@ -73,9 +73,13 @@
         </div>
 
 
-            
-            @include('partials._show-operations', ['ruta' => 'recepciones','objeto'=> $recepcion])  
-         
+            @include('partials._show-operations', [
+                        'ruta' => 'recepciones',
+                        'objeto'=> $recepcion,
+                        'permisos' => 'modificarPanelRecepciones'    
+                    ])  
+        
+              
         </div>
     </div> 
 @endsection

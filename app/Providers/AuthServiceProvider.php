@@ -18,6 +18,7 @@ use App\Policies\UsuarioPolicy;
 use App\Proveedor;
 use App\Recepcion;
 use App\RegularizacionManual;
+use App\Rol;
 use App\Subfamilia;
 use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -41,6 +42,7 @@ class AuthServiceProvider extends ServiceProvider
 
         // ClaseDesconocida::class => RecursoPolicy::class,
         User::class => UsuarioPolicy::class, 
+        Rol::class => UsuarioPolicy::class, 
 
         Producto::class => ProductoPolicy::class,
         Marca::class => ProductoPolicy::class,

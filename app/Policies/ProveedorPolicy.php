@@ -18,6 +18,10 @@ class ProveedorPolicy
     {
         //
     }  
+    
+    public function verPanelProveedores(User $user){
+        return (bool) $user->rol->permisosRol->verPanelProveedores;
+    }
     public function modificarPanelProveedores(User $user){
         return (bool) $user->rol->permisosRol->modificarPanelProveedores;
     }

@@ -18,6 +18,10 @@ class AlmacenPolicy
     {
         //
     }
+    
+    public function verPanelAlmacenes(User $user){
+        return (bool) $user->rol->permisosRol->verPanelAlmacenes;
+    }
      
     public function modificarPanelAlmacenes(User $user){
         return (bool) $user->rol->permisosRol->modificarPanelAlmacenes;

@@ -53,7 +53,13 @@
 
   
             
-            @include('partials._show-operations', ['ruta' => 'almacenes','objeto'=> $almacen])  
+            @include('partials._show-operations', [
+                        'ruta' => 'almacenes',
+                        'objeto'=> $almacen, 
+                        'permisos' => 'modificarPanelAlmacenes'
+                    ])  
+
+
         </div>
     </div>
 

@@ -27,7 +27,13 @@
              ])  
  
  
-            @include('partials._show-operations', ['ruta' => 'usuarios','objeto'=> $usuario])  
+            @include('partials._show-operations', [
+                    'ruta' => 'usuarios',
+                    'objeto'=> $usuario, 
+                    'permisos' => 'modificarPanelUsuarios'
+                ])  
+
+
         </div>
     </div>
 

@@ -53,7 +53,11 @@
 
   
             
-            @include('partials._show-operations', ['ruta' => 'proveedores','objeto'=> $proveedor])  
+            @include('partials._show-operations', [
+                        'ruta' => 'proveedores',
+                        'objeto'=> $proveedor, 
+                        'permisos' => 'modificarPanelProveedores'
+                    ])  
         </div>
     </div>
 

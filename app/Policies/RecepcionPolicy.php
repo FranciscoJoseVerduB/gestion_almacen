@@ -20,6 +20,9 @@ class RecepcionPolicy
          
     }
  
+    public function verPanelRecepciones(User $user){
+        return (bool) $user->rol->permisosRol->verPanelRecepciones;
+    }
     public function modificarPanelRecepciones(User $user){
         return (bool) $user->rol->permisosRol->modificarPanelRecepciones;
     }

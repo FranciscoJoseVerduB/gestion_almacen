@@ -18,6 +18,10 @@ class RecursoPolicy
     {
         //
     } 
+    public function verPanelRecursos(User $user){
+        return (bool) $user->rol->permisosRol->verPanelRecursos;
+    }
+
     public function modificarPanelRecursos(User $user){
         return (bool) $user->rol->permisosRol->modificarPanelRecursos;
     }

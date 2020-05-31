@@ -78,8 +78,13 @@
         </div> <!-- FIN TABLA -->
 
   
-            
-            @include('partials._show-operations', ['ruta' => 'pedidos_compra','objeto'=> $pedido_compra])  
+             
+            @include('partials._show-operations', [
+                            'ruta' => 'pedidos_compra',
+                            'objeto'=> $pedido_compra, 
+                            'permisos' => 'modificarPanelPedidos'
+                        ])     
+        
         </div>
     </div> 
 @endsection

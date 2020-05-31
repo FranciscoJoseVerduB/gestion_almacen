@@ -22,7 +22,13 @@
                     ]
              ])  
 
-            @include('partials._show-operations', ['ruta' => 'impuestos','objeto'=> $impuesto])  
+            @include('partials._show-operations', [
+                        'ruta' => 'impuestos',
+                        'objeto'=> $impuesto,
+                        'permisos' => 'modificarPanelProductos'
+                    ])  
+
+
         </div>
     </div>
 

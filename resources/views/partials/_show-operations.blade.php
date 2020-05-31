@@ -10,10 +10,8 @@
             >Regresar   
         </a>
     </div>
-
-    @auth 
-    
-    @endauth
+ 
+    @if(empty($permisos))
         <div class="btn-group btn-group-sm shadow">
             <a class="btn btn-primary mr-2"
                 href="{{route($ruta.'.edit', $objeto)}}"
@@ -30,5 +28,26 @@
             action="{{route($ruta.'.destroy', $objeto)}}">
             @csrf
             @method('DELETE') 
-        </form> 
+        </form>
+    @else
+        @can($permisos, $objeto)
+            <div class="btn-group btn-group-sm shadow">
+                <a class="btn btn-primary mr-2"
+                    href="{{route($ruta.'.edit', $objeto)}}"
+                    >Editar </a>
+                <a class="btn btn-danger"
+                    href="#" 
+                    onclick="getElementById('delete-item').submit()"
+                    >Eliminar
+                </a> 
+            </div>
+            <form class="d-none"
+                id="delete-item"
+                method="POST" 
+                action="{{route($ruta.'.destroy', $objeto)}}">
+                @csrf
+                @method('DELETE') 
+            </form>         
+        @endcan 
+    @endif
 </div> 

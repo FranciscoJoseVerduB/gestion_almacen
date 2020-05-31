@@ -24,7 +24,11 @@
 
 
         
-        @include('partials._show-operations', ['ruta' => 'subfamilias','objeto'=> $subfamilia])  
+        @include('partials._show-operations', [
+                    'ruta' => 'subfamilias',
+                    'objeto'=> $subfamilia, 
+                    'permisos' => 'modificarPanelProductos'
+                ])  
 
 
 

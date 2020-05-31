@@ -20,7 +20,11 @@
              ])  
 
           
-            @include('partials._show-operations', ['ruta' => 'marcas','objeto'=> $marca])  
+            @include('partials._show-operations', [
+                        'ruta' => 'marcas',
+                        'objeto'=> $marca,
+                        'permisos' => 'modificarPanelProductos'
+                    ])  
         </div>
     </div>
 

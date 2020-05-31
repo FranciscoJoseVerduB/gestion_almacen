@@ -18,6 +18,10 @@ class ProductoPolicy
     {
         //
     }
+    public function verPanelProductos(User $user){
+        return  (bool)$user->rol->permisosRol->verPanelProductos;
+    }
+
     public function modificarPanelProductos(User $user){
         return  (bool)$user->rol->permisosRol->modificarPanelProductos;
     }

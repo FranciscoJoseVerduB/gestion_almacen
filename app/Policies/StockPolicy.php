@@ -18,6 +18,9 @@ class StockPolicy
     {
         //
     }
+    public function verPanelStock(User $user){
+        return (bool) $user->rol->permisosRol->verPanelStock;
+    }
      
     public function modificarPanelStock(User $user){
         return (bool) $user->rol->permisosRol->modificarPanelStock;

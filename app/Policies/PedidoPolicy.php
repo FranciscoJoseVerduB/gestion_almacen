@@ -19,6 +19,10 @@ class PedidoPolicy
     {
         //
     }  
+    public function verPanelPedidos(User $user){
+        return (bool) $user->rol->permisosRol->verPanelPedidos;
+    } 
+
     public function modificarPanelPedidos(User $user){
         return (bool) $user->rol->permisosRol->modificarPanelPedidos;
     } 

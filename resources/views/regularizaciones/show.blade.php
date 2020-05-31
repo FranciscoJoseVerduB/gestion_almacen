@@ -66,7 +66,13 @@
 
   
             
-            @include('partials._show-operations', ['ruta' => 'regularizaciones_manual','objeto'=> $regularizacion_manual])  
+            @include('partials._show-operations', [
+                        'ruta' => 'regularizaciones_manual',
+                        'objeto'=> $regularizacion_manual, 
+                        'permisos' => 'modificarPanelStock'
+                    ])  
+
+
         </div>
     </div> 
 @endsection
