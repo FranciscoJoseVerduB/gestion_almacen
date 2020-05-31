@@ -28,15 +28,30 @@ class CreateUsersTable extends Migration
     
         Schema::create('permisosRoles', function (Blueprint $table) {
             $table->id();
-            $table->boolean('permisoAdministrador')->default(false);
-            $table->boolean('modificarDatosMaestros')->default(false);
-            $table->boolean('verPanelRecursos')->default(false);
+            $table->boolean('permisoAdministrador')->default(false); 
+            $table->boolean('verPanelRecursos')->default(false); 
+
+            $table->boolean('verPanelProductos')->default(false); 
+            $table->boolean('modificarPanelProductos')->default(false); 
+            
+
             $table->boolean('verPanelUsuarios')->default(false);
+            $table->boolean('modificarPanelUsuarios')->default(false);
+            
             $table->boolean('verPanelPedidos')->default(false);
+            $table->boolean('modificarPanelPedidos')->default(false);
+            
             $table->boolean('verPanelRecepciones')->default(false);
+            $table->boolean('modificarPanelRecepciones')->default(false);
+
             $table->boolean('verPanelStock')->default(false);
+            $table->boolean('modificarPanelStock')->default(false);
+            
             $table->boolean('verPanelAlmacenes')->default(false);
+            $table->boolean('modificarPanelAlmacenes')->default(false);
+
             $table->boolean('verPanelProveedores')->default(false);
+            $table->boolean('modificarPanelProveedores')->default(false);
 
             $table->timestamps(); 
    

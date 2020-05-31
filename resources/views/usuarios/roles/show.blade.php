@@ -12,44 +12,66 @@
                      'Codigo',
                      'Nombre',   
                      'permisoAdministrador',
+                     'VerP.Recursos', 
                      'Creado'
                     ],
                 'filas'=> [
                         $rol->codigo,
                         $rol->nombre,
                         $rol->permisosRol->permisoAdministrador? 'SI': 'NO', 
+                        $rol->permisosRol->verPanelRecursos? 'SI': 'NO', 
                         $rol->created_at->diffForHumans()      
                     ]
              ])  
  
             @include('partials._show-table', [
                 'columnas' => [
-                     'ModificarDatosMaestros',
-                     'VerPanelRecursos', 
-                     'VerPanelUsuarios',
-                     'VerPanelPedidos',
+                     'VerP.Productos',
+                     'MP.Productos',
+                     'Ver.Usuarios',
+                     'M.P.Usuarios',
+                     'Ver.Pedidos',
+                     'M.P.Pedidos',
                     ],
                 'filas'=> [
                     
-                        $rol->permisosRol->modificarDatosMaestros? 'SI': 'NO', 
-                        $rol->permisosRol->verPanelRecursos? 'SI': 'NO',
+                        $rol->permisosRol->verPanelProductos? 'SI': 'NO', 
+                        $rol->permisosRol->modificarPanelProductos? 'SI': 'NO', 
                         $rol->permisosRol->verPanelUsuarios? 'SI': 'NO',
+                        $rol->permisosRol->modificarPanelUsuarios? 'SI': 'NO',
                         $rol->permisosRol->verPanelPedidos? 'SI': 'NO',
+                        $rol->permisosRol->modificarPanelPedidos? 'SI': 'NO',
                     ]
              ])  
             
             @include('partials._show-table', [
                 'columnas' => [ 
-                     'VerPanelRecepciones', 
-                     'VerPanelStock',
-                     'VerPanelAlmacenes',
-                     'VerPanelProveedores'
+                     'VerP.Recepciones', 
+                     'M.P.Recepciones', 
+                     'VerP.Stock',
+                     'M.P.Stock', 
                     ],
                 'filas'=> [ 
                         $rol->permisosRol->verPanelRecepciones? 'SI': 'NO', 
+                        $rol->permisosRol->modificarPanelRecepciones? 'SI': 'NO', 
                         $rol->permisosRol->verPanelStock? 'SI': 'NO',
+                        $rol->permisosRol->modificarPanelStock? 'SI': 'NO', 
+                    ]
+             ]) 
+
+
+@include('partials._show-table', [
+                'columnas' => [ 
+                     'VerP.Almacenes',
+                     'M.P.Almacenes',
+                     'VerP.Proveedores',
+                     'M.P.Proveedores'
+                    ],
+                'filas'=> [ 
                         $rol->permisosRol->verPanelAlmacenes? 'SI': 'NO',
+                        $rol->permisosRol->modificarPanelAlmacenes? 'SI': 'NO',
                         $rol->permisosRol->verPanelProveedores? 'SI': 'NO',
+                        $rol->permisosRol->modificarPanelProveedores? 'SI': 'NO',
                     ]
              ]) 
             

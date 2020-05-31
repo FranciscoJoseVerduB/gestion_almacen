@@ -55,14 +55,28 @@ class RolController extends Controller
 
             $permisosRol = new PermisosRol([
                 'permisoAdministrador' => $request->permisoAdministrador? true: false,
-                'modificarDatosMaestros' => $request->modificarDatosMaestros? true: false,
                 'verPanelRecursos' => $request->verPanelRecursos? true: false,
+                
+                'verPanelProductos' => $request->verPanelProductos? true: false,
+                'modificarPanelProductos' => $request->modificarPanelProductos? true: false,
+
                 'verPanelUsuarios' => $request->verPanelUsuarios? true: false,
+                'modificarPanelUsuarios' => $request->modificarPanelUsuarios? true: false,
+
                 'verPanelPedidos' => $request->verPanelPedidos? true: false,
+                'modificarPanelPedidos' => $request->modificarPanelPedidos? true: false,
+                
                 'verPanelRecepciones' => $request->verPanelRecepciones? true: false,
+                'modificarPanelRecepciones' => $request->modificarPanelRecepciones? true: false,
+
                 'verPanelStock' => $request->verPanelStock? true: false,
+                'modificarPanelStock' => $request->modificarPanelStock? true: false,
+                
                 'verPanelAlmacenes' => $request->verPanelAlmacenes? true: false,
+                'modificarPanelAlmacenes' => $request->modificarPanelAlmacenes? true: false,
+
                 'verPanelProveedores' => $request->verPanelProveedoress? true: false,            
+                'modificarPanelProveedores' => $request->modificarPanelProveedoress? true: false, 
             ]);     
             $permisosRol->save();
 
@@ -122,26 +136,35 @@ class RolController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(SaveRolRequest $request, Rol $rol)
-    {
-
-
+    { 
         $rol->codigo = $request->codigo;
         $rol->nombre = $request->nombre;
-        $rol->permisosRol->permisoAdministrador  = $request->permisoAdministrador? 1: 0;
-        $rol->permisosRol->modificarDatosMaestros  = $request->modificarDatosMaestros? 1: 0;
+        $rol->permisosRol->permisoAdministrador = $request->permisoAdministrador? 1: 0;
         $rol->permisosRol->verPanelRecursos  = $request->verPanelRecursos? 1: 0;
+         
+        $rol->permisosRol->verPanelProductos = $request->verPanelProductos? 1: 0; 
+        $rol->permisosRol->modificarPanelProductos = $request->modificarPanelProductos? 1: 0; 
+         
         $rol->permisosRol->verPanelUsuarios  = $request->verPanelUsuarios? 1: 0;
+        $rol->permisosRol->modificarPanelUsuarios  = $request->modificarPanelUsuarios? 1: 0;
+
         $rol->permisosRol->verPanelPedidos  = $request->verPanelPedidos? 1: 0;
-        $rol->permisosRol->verPanelRecepciones  = $request->verPanelRecepciones? 1: 0;
-        $rol->permisosRol->verPanelStock  = $request->verPanelStock? 1: 0;
-        $rol->permisosRol->verPanelAlmacenes  = $request->verPanelAlmacenes? 1: 0;
-        $rol->permisosRol->verPanelProveedores  = $request->verPanelProveedores? 1: 0;
+        $rol->permisosRol->modificarPanelPedidos  = $request->modificarPanelPedidos? 1: 0;
         
+        $rol->permisosRol->verPanelRecepciones  = $request->verPanelRecepciones? 1: 0;
+        $rol->permisosRol->modificarPanelRecepciones  = $request->modificarPanelRecepciones? 1: 0;
+
+        $rol->permisosRol->verPanelStock  = $request->verPanelStock? 1: 0;
+        $rol->permisosRol->modificarPanelStock  = $request->modificarPanelStock? 1: 0;
+
+        $rol->permisosRol->verPanelAlmacenes  = $request->verPanelAlmacenes? 1: 0;
+        $rol->permisosRol->modificarPanelAlmacenes  = $request->modificarPanelAlmacenes? 1: 0;
+        
+        $rol->permisosRol->verPanelProveedores  = $request->verPanelProveedores? 1: 0;
+        $rol->permisosRol->modificarPanelProveedores  = $request->modificarPanelProveedores? 1: 0;
+ 
         $rol->update();  
         $rol->permisosRol->update();
-
-
-
 
  
         return redirect()->route('roles.index')->with('status', 'El rol fue actualizado con éxito'); 
