@@ -5,19 +5,21 @@
 @section('content') 
     <div class="container"> 
         <div class="d-flex justify-content-between align-items-center mb-3">  
-            <div class="d-flex align-items-baseline">
+            <div class="d-flex align-items-baseline mr-2">
                   <a class="btn btn-primary "
                       href="{{route('stocks.index')}}"
                   >Stock
                   </a>
             </div>
 
-             <div class="d-flex align-items-baseline">
-                    <a class="btn btn-primary "
-                        href="{{route('regularizaciones_manual.create')}}"
-                    >Crear Documento de Regularización
-                    </a>
-            </div>
+            @can('modificarPanelStock',   App\RegularizacionManual::class)
+              <div class="d-flex align-items-baseline">
+                      <a class="btn btn-primary "
+                          href="{{route('regularizaciones_manual.create')}}"
+                      >Crear Documento de Regularización
+                      </a>
+              </div>
+            @endcan
         </div>
  
 

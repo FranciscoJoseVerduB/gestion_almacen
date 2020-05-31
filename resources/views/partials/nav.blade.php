@@ -1,5 +1,5 @@
 <nav  
-    class="navbar navbar-light navbar-expand-lg shadow-lg">
+    class="navbar navbar-light navbar-expand-xl shadow-lg">
 
     <a class="navbar-brand" href="{{route('home')}}"> 
     
@@ -31,7 +31,7 @@
                     @lang('Home')
                 </a>
             </li> 
-            @can('verPanelProductos', new App\Producto)
+            @can('verPanelProductos',   App\Producto::class)
                 <li class="nav-item dropdown"> 
                     <a class="nav-link dropdown-toggle 
                             {{ setActive('productos.*') }}
@@ -61,7 +61,7 @@
                 </li> 
             @endcan
   
-            @can('verPanelUbicaciones', new App\Ubicacion)
+            @can('verPanelUbicaciones',   App\Ubicacion::class)
                 <li class="nav-item dropdown"> 
                     <a class="nav-link dropdown-toggle 
                             {{ setActive('almacenes.*') }}  
@@ -75,17 +75,17 @@
                         @lang('Ubicaciones')
                     </a> 
                     <div class="dropdown-menu  " aria-labelledby="navbarDropdownUbicaciones">
-                        @can('verPanelAlmacenes', new App\Almacen)
+                        @can('verPanelAlmacenes',   App\Almacen::class)
                             <a class="dropdown-item  {{ setActive('almacenes.*') }}  " href="{{route('almacenes.index')}}">@lang('Almacenes')<a>  
                         @endcan
-                        @can('verPanelProveedores', new App\Proveedor)  
+                        @can('verPanelProveedores',   App\Proveedor::class)  
                             <a class="dropdown-item  {{ setActive('proveedores.*') }}  " href="{{route('proveedores.index')}}">@lang('Proveedores')</a>  
                         @endcan
                     </div>
                 </li> 
             @endcan
 
-            @can('verPanelProcesos', new App\Proceso)
+            @can('verPanelProcesos',   App\Proceso::class)
             <li class="nav-item dropdown"> 
                 <a class="nav-link dropdown-toggle 
                         {{ setActive('recepciones.*') }}  
@@ -100,13 +100,13 @@
                     >@lang('Procesos')
                 </a> 
                 <div class="dropdown-menu  " aria-labelledby="navbarDropdownProcesos">
-                    @can('verPanelPedidos', new App\PedidoCompra )
+                    @can('verPanelPedidos',   App\PedidoCompra::class )
                         <a class="dropdown-item {{ setActive('pedidos_compra.*') }}" href="{{route('pedidos_compra.index')}}">@lang('Pedidos')<a>  
                     @endcan  
-                    @can('verPanelRecepciones', new App\Recepcion )
+                    @can('verPanelRecepciones',   App\Recepcion::class )
                         <a class="dropdown-item {{ setActive('recepciones.*') }}" href="{{route('recepciones.index')}}">@lang('Recepciones')</a>
                     @endcan
-                    @can('verPanelStock', new App\Stock ) 
+                    @can('verPanelStock',  App\Stock::class ) 
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item {{ setActive('stocks.*') }}" href="{{route('stocks.index')}}">@lang('Stock')</a>  
                         <a class="dropdown-item {{ setActive('regularizaciones_manual.*') }}" href="{{route('regularizaciones_manual.index')}}">@lang('Regularizaciones Manuales')</a>  
@@ -117,7 +117,7 @@
 
 
          
-            @can('verPanelUsuarios', new App\User) 
+            @can('verPanelUsuarios',  App\User::class) 
                 <li class="nav-item dropdown"> 
                     <a class="nav-link dropdown-toggle 
                             {{ setActive('usuarios.*') }}  
@@ -166,7 +166,7 @@
 
 </nav>
 
-<nav class="nav flex-column"
+<nav class="navbar navbar-expand-lg navbar-light bg-light"
     aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i>Home/</a></li>

@@ -25,10 +25,17 @@
 </head>
 <body  > 
     <div id="app" class="d-flex flex-column  h-screen justify-content-between">
-        <header>
-            @include('partials.nav') 
-            @include('partials.session-status')
-        </header>
+        <div class="header-nav">
+            <div class="container-fluid">
+             <header>
+                <header>
+                    @include('partials.nav') 
+                    @include('partials.session-status')
+                </header>
+              </header>
+            </div>
+          </div>
+        
 
         <main class="my-0">
             @yield('content')

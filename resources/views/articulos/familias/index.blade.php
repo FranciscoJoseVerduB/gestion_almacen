@@ -9,7 +9,8 @@
         @include('partials.crear-entidad', [
                     'ruta' => 'familias',
                     'texto' => 'Crear Familia', 
-                    'permisos' => 'modificarPanelProductos'
+                    'permisos' => 'modificarPanelProductos',
+                    'objeto' =>   App\Familia::class
         ])
 
          

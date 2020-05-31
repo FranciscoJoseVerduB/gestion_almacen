@@ -9,7 +9,8 @@
         @include('partials.crear-entidad', [
                     'ruta' => 'productos',
                     'texto' => 'Crear Produto', 
-                    'permisos' => 'modificarPanelProductos'
+                    'permisos' => 'modificarPanelProductos',
+                    'objeto' =>   App\Producto::class
         ])
  
             <table class="table  table-sm table-striped table-bordered table-hover shadow">

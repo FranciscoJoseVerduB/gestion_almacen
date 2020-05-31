@@ -12,10 +12,12 @@
                         href="{{route('roles.index')}}"
                     >Roles disponibles
                     </a>
+                @can('modificarPanelUsuarios',   App\User::class)
                     <a class="btn btn-primary "
                         href="{{route('usuarios.create')}}"
                     >Crear usuario
                     </a>
+                @endcan
             </div>
         </div>
  

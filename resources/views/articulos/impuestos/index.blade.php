@@ -9,7 +9,8 @@
         @include('partials.crear-entidad', [
                     'ruta' => 'impuestos',
                     'texto' => 'Crear Impuesto', 
-                    'permisos' => 'modificarPanelProductos'
+                    'permisos' => 'modificarPanelProductos',
+                    'objeto' =>   App\Impuesto::class
         ])
  
 

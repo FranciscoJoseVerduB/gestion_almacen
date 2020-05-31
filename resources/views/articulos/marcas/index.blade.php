@@ -9,7 +9,8 @@
         @include('partials.crear-entidad', [
                     'ruta' => 'marcas',
                     'texto' => 'Crear Marca', 
-                    'permisos' => 'modificarPanelProductos'
+                    'permisos' => 'modificarPanelProductos',
+                    'objeto' =>   App\Marca::class
         ])
  
      

@@ -7,10 +7,11 @@
 
 
       @include('partials.crear-entidad', [
-          'ruta' => 'recepciones',
-          'texto' => 'Crear Recepcion', 
-          'permisos' => 'modificarPanelRecepciones' 
-      ])
+              'ruta' => 'recepciones',
+              'texto' => 'Crear Recepcion', 
+              'permisos' => 'modificarPanelRecepciones',
+              'objeto' =>   App\Recepcion::class
+          ])
   
 
         <table class="table  table-sm table-striped table-bordered table-hover shadow">

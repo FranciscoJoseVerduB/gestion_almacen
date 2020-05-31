@@ -9,7 +9,8 @@
       @include('partials.crear-entidad', [
             'ruta' => 'pedidos_compra',
             'texto' => 'Crear Pedido', 
-            'permisos' => 'modificarPanelPedidos' 
+            'permisos' => 'modificarPanelPedidos',
+            'objeto' =>   App\PedidoCompra::class
         ])
  
 

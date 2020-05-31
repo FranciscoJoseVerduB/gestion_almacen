@@ -8,7 +8,8 @@
         @include('partials.crear-entidad', [
                     'ruta' => 'proveedores',
                     'texto' => 'Crear Proveedor', 
-                    'permisos' => 'modificarPanelProveedores'
+                    'permisos' => 'modificarPanelProveedores',
+                    'objeto' =>   App\Proveedor::class
         ])
 
         <table class="table  table-sm table-striped table-bordered table-hover shadow">

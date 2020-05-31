@@ -9,7 +9,8 @@
         @include('partials.crear-entidad', [
                     'ruta' => 'almacenes',
                     'texto' => 'Crear Almacen', 
-                    'permisos' => 'modificarPanelAlmacenes'
+                    'permisos' => 'modificarPanelAlmacenes',
+                    'objeto' =>   App\Almacen::class
         ])
  
 

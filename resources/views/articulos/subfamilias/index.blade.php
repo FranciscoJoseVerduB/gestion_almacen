@@ -12,18 +12,14 @@
                     href="{{route('familias.index')}}"
                 >Ver Familias disponibles
                 </a>
-                <a class="btn btn-primary "
-                    href="{{route('subfamilias.create')}}"
-                >Crear Subfamilia
-                </a>
+                @can('modificarPanelProductos',   App\Subfamilia::class)
+                    <a class="btn btn-primary "
+                        href="{{route('subfamilias.create')}}"
+                    >Crear Subfamilia
+                    </a>
+                @endcan
             </div>
         </div>
-
-        @include('partials.crear-entidad', [
-                'ruta' => 'familias',
-                'texto' => 'Crear Familia', 
-                'permisos' => 'modificarPanelProductos' 
-            ])
  
      
         <table class="table  table-sm table-striped table-bordered table-hover shadow">
