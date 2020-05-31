@@ -14,6 +14,7 @@ class ProveedorSeeder extends Seeder
      */
     public function run()
     {
+        
         try{
             $direccion = new Direccion([
                 'direccion' => 'C\' Ejemplo Proveedor, nº 1',
@@ -44,5 +45,6 @@ class ProveedorSeeder extends Seeder
         }catch(\Exception $e){
             DB::rollback();
         }
+    
     }
 }

@@ -42,7 +42,7 @@
               @empty
                 <tr> 
                    <td class="text-center"
-                     colspan="6"
+                     colspan="7"
                     >No hay pedidos que mostrar
                   </td> 
                 </tr>

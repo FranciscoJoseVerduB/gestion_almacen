@@ -20,7 +20,7 @@ class CreateStocks extends Migration
             $table->unsignedBigInteger('almacen_id');
             $table->string('url');
             $table->timestamps();
-            $table->unique('producto_id', 'almacen_id');
+            $table->unique(['producto_id', 'almacen_id']);
                          
             $table->foreign('producto_id')->references('id')->on('productos');     
             $table->foreign('almacen_id')->references('id')->on('almacenes');    

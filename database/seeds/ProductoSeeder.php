@@ -15,6 +15,7 @@ class ProductoSeeder extends Seeder
      */
     public function run()
     {
+        
         $producto = Producto::create([
             'codigo' => 'HER0000001',
             'nombre' => 'Martillo',
@@ -23,6 +24,7 @@ class ProductoSeeder extends Seeder
             'marca_id' =>  Marca::firstOrFail()->id,
             'impuesto_id' => Impuesto::firstOrFail()->id
         ]);
+        
  
     }
 }

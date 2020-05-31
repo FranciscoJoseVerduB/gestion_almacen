@@ -16,16 +16,19 @@ class MovimientoSeeder extends Seeder
     {
         try{
 
+            //Entrada de movimiento
             $claveEntrada = new ClaveMovimiento([
                 'codigo' => 'EN', 
                 'esEntrada' => true
             ]); $claveEntrada->save();
 
+            //Salida de movimiento
             $claveSalida = new ClaveMovimiento([
                 'codigo' => 'SA', 
                 'esEntrada' => false
             ]);$claveSalida->save();
 
+            //Movimiento en Recepcion
             $movEntradaREC = new TipoMovimientoAlmacen([
                 'codigo' => 'ENREC',
                 'nombre' => 'Entrada Recepcion',
@@ -38,6 +41,7 @@ class MovimientoSeeder extends Seeder
                 'claveMovimiento_id' => $claveSalida->id
             ]);$movSalidaREC->save();
                 
+            //Movimiento en Pedidos -- No se usa
             $movEntradaPED = new TipoMovimientoAlmacen([
                 'codigo' => 'ENPED',
                 'nombre' => 'Entrada Pedido',
@@ -50,6 +54,7 @@ class MovimientoSeeder extends Seeder
                 'claveMovimiento_id' => $claveSalida->id
             ]);$movSalidaPED->save();
 
+            //Movimiento en Regularizacion Manual
             $movEntradaREG = new TipoMovimientoAlmacen([
                 'codigo' => 'ENREG',
                 'nombre' => 'Entrada Regularizacion',

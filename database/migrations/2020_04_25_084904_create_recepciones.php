@@ -25,6 +25,7 @@ class CreateRecepciones extends Migration
             $table->unsignedBigInteger('usuario_id')->nullable(); 
             $table->timestamps();
             
+            $table->unique(['serie', 'numero']);
                         
             $table->foreign('proveedor_id')->references('id')->on('proveedores'); 
             $table->foreign('almacen_id')->references('id')->on('almacenes');   
@@ -35,12 +36,10 @@ class CreateRecepciones extends Migration
         Schema::create('recepcionLineas', function (Blueprint $table) {
             $table->id();
             $table->double('cantidad'); 
-            $table->unsignedBigInteger('producto_id');
-           // $table->unsignedBigInteger('movimientoAlmacen_id');
+            $table->unsignedBigInteger('producto_id'); 
             $table->unsignedBigInteger('recepcion_id');  
 
-            $table->foreign('producto_id')->references('id')->on('productos'); 
-           // $table->foreign('movimientoAlmacen_id')->references('id')->on('movimientosAlmacenes')->onDelete('cascade');  
+            $table->foreign('producto_id')->references('id')->on('productos');  
             $table->foreign('recepcion_id')->references('id')->on('recepciones')->onDelete('cascade');    
         });
 
@@ -76,8 +75,8 @@ class CreateRecepciones extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recepciones');
         Schema::dropIfExists('pedidoCompraLinea_RecepcionLinea');
-        Schema::dropIfExists('recepcionLineas');
+        Schema::dropIfExists('recepcionLineas'); 
+        Schema::dropIfExists('recepciones');
     }
 }

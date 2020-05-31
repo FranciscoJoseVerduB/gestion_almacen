@@ -16,15 +16,31 @@ class UsuarioSeeder extends Seeder
     {
         try{
             $permisosRol = new PermisosRol([
-                'permisoAdministrador' => true,
-                'modificarDatosMaestros' => true,
+                'permisoAdministrador' => true, 
                 'verPanelRecursos' => true,
+
                 'verPanelUsuarios' => true,
+                'modificarPanelUsuarios' => true,
+
+                'verPanelProductos' => true,
+                'modificarPanelProductos'=> true,
+ 
+ 
+ 
                 'verPanelPedidos' => true,
+                'modificarPanelPedidos'=>true,
+
                 'verPanelRecepciones' => true,
+                'modificarPanelRecepciones'=>true,
+
                 'verPanelStock' => true,
+                'modificarPanelStock'=>true,
+
                 'verPanelAlmacenes' => true,
+                'modificarPanelAlmacenes' => true,
+
                 'verPanelProveedores' => true,            
+                'modificarPanelProveedores' => true,
             ]);     
             $permisosRol->save();
 

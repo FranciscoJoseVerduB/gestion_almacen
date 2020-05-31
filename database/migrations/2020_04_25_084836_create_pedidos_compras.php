@@ -37,7 +37,9 @@ class CreatePedidosCompras extends Migration
             $table->unsignedBigInteger('almacenDestinoCompra_id');
             $table->unsignedBigInteger('estadoPedido_id');
             $table->unsignedBigInteger('usuario_id')->nullable();
-            $table->timestamps();
+            $table->timestamps(); 
+
+            $table->unique(['serie', 'numero']);
  
             $table->foreign('proveedor_id')->references('id')->on('proveedores');  
             $table->foreign('usuario_id')->references('id')->on('users')->onDelete('set null'); 
@@ -54,16 +56,12 @@ class CreatePedidosCompras extends Migration
             $table->double('cantidadRecibida')->default(0);
             $table->unsignedBigInteger('pedidoCompra_id'); 
             $table->unsignedBigInteger('lineaPedidoEstado_id'); 
-            $table->unsignedBigInteger('producto_id');
-           // $table->unsignedBigInteger('movimientoAlmacen_id');
+            $table->unsignedBigInteger('producto_id'); 
             $table->timestamps();
-
-            $table->primary(['serie', 'numero']);
 
             $table->foreign('pedidoCompra_id')->references('id')->on('pedidosCompras')->onDelete('cascade');    
             $table->foreign('lineaPedidoEstado_id')->references('id')->on('pedidoCompraLineaEstados');             
-            $table->foreign('producto_id')->references('id')->on('productos'); 
-           // $table->foreign('movimientoAlmacen_id')->references('id')->on('movimientosAlmacenes')->onDelete('cascade'); 
+            $table->foreign('producto_id')->references('id')->on('productos');  
         });
  
     }
@@ -75,10 +73,10 @@ class CreatePedidosCompras extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pedidosCompras'); 
-        Schema::dropIfExists('pedidoCompraEstados');
-        Schema::dropIfExists('pedidoCompraLineas');
-        Schema::dropIfExists('lineaPedidoCompraEstados');
+        Schema::dropIfExists('pedidoCompraLineas'); 
+        Schema::dropIfExists('pedidosCompras');  
+        Schema::dropIfExists('pedidoCompraEstados');  
+        Schema::dropIfExists('pedidoCompraLineaEstados');
         
     }
 }

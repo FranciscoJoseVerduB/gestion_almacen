@@ -23,6 +23,8 @@ class CreateRegularizacionesManuales extends Migration
             $table->unsignedBigInteger('usuario_id')->nullable(); 
             $table->timestamps();
 
+            $table->unique(['serie', 'numero']);
+
             $table->foreign('usuario_id')->references('id')->on('users')->onDelete('set null');  
             $table->foreign('almacen_id')->references('id')->on('almacenes'); 
         });
