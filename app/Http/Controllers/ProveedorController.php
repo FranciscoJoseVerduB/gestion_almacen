@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Direccion;
+use App\Http\Middleware\CheckProveedor;
 use App\Sujeto;
 use App\Http\Requests\SaveProveedorRequest;
 use App\Proveedor;
@@ -11,8 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 class ProveedorController extends Controller
 {
-
-    
+    public function __construct()
+    {
+        $this->middleware(CheckProveedor::class);
+    }
+       
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +34,8 @@ class ProveedorController extends Controller
      */
     public function create()
     {
+        $this->authorize('escribirPanelProveedores', new Proveedor());
+
         return view('proveedores.create', [
             'proveedor'=> new Proveedor(), 
             'sujeto' => new Sujeto(),
@@ -45,6 +51,9 @@ class ProveedorController extends Controller
      */
     public function store(SaveProveedorRequest $request)
     { 
+        $this->authorize('escribirPanelProveedores', new Proveedor());
+
+
         try{
             DB::beginTransaction();
 
@@ -108,6 +117,8 @@ class ProveedorController extends Controller
      */
     public function edit(Proveedor $proveedor)
     {
+        $this->authorize('escribirPanelProveedores', new Proveedor());
+
         return view('proveedores.edit', [
             'proveedor' =>$proveedor,  
             'sujeto' => $proveedor->sujeto,
@@ -124,6 +135,8 @@ class ProveedorController extends Controller
      */
     public function update(SaveProveedorRequest $request, Proveedor $proveedor)
     {   
+        $this->authorize('escribirPanelProveedores', new Proveedor());
+
 
         $proveedor->sujeto->direccion->direccion = $request->direccion;
         $proveedor->sujeto->direccion->poblacion = $request->poblacion;
@@ -157,6 +170,8 @@ class ProveedorController extends Controller
      */
     public function destroy(Proveedor $proveedor)
     {
+        $this->authorize('escribirPanelProveedores', new Proveedor());
+
         $proveedor->delete(); 
         return redirect()->route('proveedores.index')->with('status', 'El proveedor fue eliminado con éxito');
     }

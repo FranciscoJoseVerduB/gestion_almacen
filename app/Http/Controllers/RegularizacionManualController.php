@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Almacen;
+use App\Http\Middleware\CheckStock;
 use App\Http\Requests\SaveRegularizacionRequest;
 use App\MovimientoAlmacen;
 use App\Producto;
@@ -22,8 +23,9 @@ class RegularizacionManualController extends Controller
     
     public function __construct()
     {
-        $this->authorize('verPanelStock');
+        $this->middleware(CheckStock::class);
     }
+   
 
 
     /**

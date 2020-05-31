@@ -6,12 +6,18 @@ use App\Almacen;
 use App\Sujeto;
 use App\Direccion;
 use App\Geolocalizacion;
+use App\Http\Middleware\CheckAlmacen;
 use App\Http\Requests\SaveAlmacenRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AlmacenController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(CheckAlmacen::class);
+    }
+   
     /**
      * Display a listing of the resource.
      *

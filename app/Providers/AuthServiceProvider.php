@@ -2,8 +2,18 @@
 
 namespace App\Providers;
 
+use App\Almacen;
 use App\PedidoCompra;
+use App\Policies\AlmacenPolicy;
 use App\Policies\PedidoPolicy;
+use App\Policies\ProductoPolicy;
+use App\Policies\ProveedorPolicy;
+use App\Policies\RecepcionPolicy;
+use App\Policies\StockPolicy;
+use App\Policies\UsuarioPolicy;
+use App\Proveedor;
+use App\Recepcion;
+use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -16,7 +26,14 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
-        PedidoCompra::class => PedidoPolicy::class
+        PedidoCompra::class => PedidoPolicy::class,
+        Recepcion::class => RecepcionPolicy::class,
+        Stock::class => StockPolicy::class,
+        Producto::class => ProductoPolicy::class,
+        Proveedor::class => ProveedorPolicy::class,
+        Almacen::class => AlmacenPolicy::class,
+        User::class => UsuarioPolicy::class,
+        
     ];
 
     /**

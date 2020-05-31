@@ -74,9 +74,8 @@
 
 
             
-        @can('verPanelPedidos')
             @include('partials._show-operations', ['ruta' => 'recepciones','objeto'=> $recepcion])  
-        @endcan
+         
         </div>
     </div> 
 @endsection

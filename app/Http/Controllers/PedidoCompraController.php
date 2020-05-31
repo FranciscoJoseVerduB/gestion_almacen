@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Almacen;
 use App\ClaveMovimiento;
+use App\Http\Middleware\CheckPedidoCompra;
 use App\Http\Requests\SavePedidoCompraRequest;
 use App\MovimientoAlmacen;
 use App\PedidoCompra;
@@ -24,6 +25,10 @@ class PedidoCompraController extends Controller
 
     private $serie = 'PE';
 
+    public function __construct()
+    {
+        $this->middleware(CheckPedidoCompra::class);
+    }
    
     /** 
      * Display a listing of the resource.
@@ -31,11 +36,7 @@ class PedidoCompraController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {   
-        $user = Auth::user();
-        
-  
-        $this->authorize('verPanelPedidos', new PedidoCompra);
+    {    
 
         return view('pedidos.index',['pedidos_compra' => PedidoCompra::latest()->paginate(5)]); 
     }
@@ -47,6 +48,9 @@ class PedidoCompraController extends Controller
      */
     public function create()
     {
+        
+        $this->authorize('escribirPanelPedidos', new PedidoCompra);
+
         return view('pedidos.create', [
             'pedido_compra'=> new PedidoCompra,  
             'lineas' => array(),
@@ -166,6 +170,8 @@ class PedidoCompraController extends Controller
     public function store(SavePedidoCompraRequest $request)
     {   
           
+        $this->authorize('escribirPanelPedidos', new PedidoCompra);
+
         try{
             DB::beginTransaction();
 
@@ -227,7 +233,8 @@ class PedidoCompraController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(PedidoCompra $pedidoCompra)
-    {  
+    {   
+        $this->authorize('escribirPanelPedidos', new PedidoCompra);
 
         return view('pedidos.edit', [
             'pedido_compra'=> $pedidoCompra,  
@@ -248,7 +255,9 @@ class PedidoCompraController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(SavePedidoCompraRequest $request, PedidoCompra $pedidoCompra)
-    {
+    { 
+        $this->authorize('escribirPanelPedidos', new PedidoCompra);
+
         try{
 
             DB::beginTransaction();
@@ -320,6 +329,8 @@ class PedidoCompraController extends Controller
      */
     public function destroy(PedidoCompra $pedidoCompra)
     { 
+        $this->authorize('escribirPanelPedidos', new PedidoCompra);
+        
         $pedidoCompra->delete(); 
         return redirect()->route('pedidos_compra.index')->with('status', 'El pedido fue eliminado con éxito');
     }

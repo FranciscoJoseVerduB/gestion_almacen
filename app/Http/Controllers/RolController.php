@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CheckUsuario;
 use App\Http\Requests\SaveRolRequest;
 use App\PermisosRol;
 use App\Rol; 
@@ -10,7 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class RolController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware(CheckUsuario::class);
+    }
+   
 
     /**
      * Display a listing of the resource.

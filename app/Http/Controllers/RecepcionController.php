@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Almacen;
+use App\Http\Middleware\CheckRecepcion;
 use App\Http\Requests\SaveRecepcionRequest;
 use App\MovimientoAlmacen;
 use App\PedidoCompra;
@@ -27,8 +28,9 @@ class RecepcionController extends Controller
 
     public function __construct()
     {
-        // $this->authorize('verPanelRecepciones');
+        $this->middleware(CheckRecepcion::class);
     }
+   
     
     /**
      * Display a listing of the resource.
@@ -47,7 +49,7 @@ class RecepcionController extends Controller
      */
     public function create()
     {
-        $this->authorize('escribirPanelRecepciones');
+        $this->authorize('escribirPanelRecepciones', new Recepcion());
 
         return view('recepciones.create', [
             'recepcion'=> new Recepcion,  
@@ -67,7 +69,7 @@ class RecepcionController extends Controller
      */
     public function store(SaveRecepcionRequest $request)
     { 
-        $this->authorize('escribirPanelRecepciones');
+        $this->authorize('escribirPanelRecepciones', new Recepcion());
 
         try{
             DB::beginTransaction();
@@ -152,7 +154,7 @@ class RecepcionController extends Controller
      */
     public function edit(Recepcion $recepcion)
     { 
-        $this->authorize('escribirPanelRecepciones');
+        $this->authorize('escribirPanelRecepciones', $recepcion);
 
         return view('recepciones.edit', [
             'recepcion'=> $recepcion,  
@@ -172,7 +174,7 @@ class RecepcionController extends Controller
      */
     public function update(SaveRecepcionRequest $request, Recepcion $recepcion)
     {
-        $this->authorize('escribirPanelRecepciones');
+        $this->authorize('escribirPanelRecepciones', $recepcion);
 
         try{
 
@@ -288,7 +290,7 @@ class RecepcionController extends Controller
      */
     public function destroy(Recepcion $recepcion)
     { 
-        $this->authorize('escribirPanelRecepciones');
+        $this->authorize('escribirPanelRecepciones', $recepcion);
 
         $recepcion->delete(); 
         return redirect()->route('recepciones.index')->with('status', 'La recepcion fue eliminado con éxito');
