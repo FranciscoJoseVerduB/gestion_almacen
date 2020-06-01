@@ -3,6 +3,6 @@ Para el funcionamiento de esta web he recaudado numerosa información relacionad
 
 
 <p align="center">
-  <img src="./Documentacion/Home.png" width="350" title="hover text" alt="home.png">
+  <img src="Documentacion/Home.png" width="350" title="hover text" alt="home.png">
    
 </p>
