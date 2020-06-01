@@ -27,3 +27,39 @@ Para el funcionamiento de esta web he recaudado numerosa información relacionad
 ## 3.5. Finalmente creamos el producto a raíz de todas estas características. El producto debe tener un impuesto, una marca y un precio.
 <p align="center"> <img src="./Documentacion/articulos/producto.png"title="hover text" alt="home.png"></p>
 
+## 4. UBICACIONES
+## 4.1 Almacenes. Define tu propio almacén, dirección, razón social, email, NIF, geolocalización ...
+<p align="center"> <img src="./Documentacion/almacenes/almacenes-1.png"title="hover text" alt="home.png"></p>
+
+## 4.1 Proveedores. Define tu propio almacén, dirección, razón social, email, NIF ...
+<p align="center"> <img src="./Documentacion/proveedores/proveedores-1.png"title="hover text" alt="home.png"></p>
+
+## 5. PROCESOS. Traza el recorrido desde el pedido, hasta su recepción en tu almacén. Se puede saber desde cuando se ha hecho el pedido y cuando se ha recepcionado. Se podrá saber que cantidad se ha pedido frente a la que realmente se ha recepcionado.
+## 5.1.1 PEDIDOS. Historial de pedidos
+<p align="center"> <img src="./Documentacion/pedidos/pedidos-1.png"title="hover text" alt="home.png"></p>
+
+## 5.1.2 PEDIDOS. Escenario de pedidos
+<p align="center"> <img src="./Documentacion/pedidos/pedidos-2.png"title="hover text" alt="home.png"></p>
+ 
+## 5.2.1 RECEPCIONES. Recepciona la mercancía
+<p align="center"> <img src="./Documentacion/recepciones/recepciones-1.png"title="hover text" alt="home.png"></p>
+
+## 5.2.2 RECEPCIONES. Captura el pedido realizado previamente, sin tener que introducir nuevamente los datos. Así tendrás una trazabilidad de lo que se pide y recepciona realmente
+<p align="center"> <img src="./Documentacion/recepciones/recepciones-2.png"title="hover text" alt="home.png"></p>
+
+## 5.3.1 STOCK. Visualiza la cantidad que hay en stock de cada producto, en cada almacén. En tiempo real
+<p align="center"> <img src="./Documentacion/stock/stock-1.png"title="hover text" alt="home.png"></p>
+
+## 5.4.1 REGULARIZACIONES MANUALES. Regulariza el Stock que hay de un producto determinado en el almacén. Introduce la cantidad que hay realmente en el almacén y la app ajustará la cantidad real por medio de movimientos de entrada y salida de almacén. 
+<p align="center"> <img src="./Documentacion/regularizaciones/regularizaciones-1.png"title="hover text" alt="home.png"></p>
+
+## 6. SEGURIDAD
+## 6.1 USUARIOS. Crea los usuarios que tendrán acceso al sistema
+<p align="center"> <img src="./Documentacion/usuarios/usuarios-1.png"title="hover text" alt="home.png"></p>
+
+## 6.2 ROLES. Crea roles y asignaselos a los usuarios creados previamente. Decide por tí mismo qué apartado puede ver o tocar un usuario en concreto
+## 6.2.1. Resumen de roles disponibles 
+<p align="center"> <img src="./Documentacion/usuarios/roles-1.png"title="hover text" alt="home.png"></p>
+
+## 6.2.2. Creación de roles
+<p align="center"> <img src="./Documentacion/usuarios/roles-2.png"title="hover text" alt="home.png"></p>
