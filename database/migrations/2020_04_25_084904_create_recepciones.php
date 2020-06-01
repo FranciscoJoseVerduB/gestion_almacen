@@ -38,7 +38,7 @@ class CreateRecepciones extends Migration
             $table->double('cantidad'); 
             $table->unsignedBigInteger('producto_id'); 
             $table->unsignedBigInteger('recepcion_id');  
-
+            $table->timestamps();
             $table->foreign('producto_id')->references('id')->on('productos');  
             $table->foreign('recepcion_id')->references('id')->on('recepciones')->onDelete('cascade');    
         });
