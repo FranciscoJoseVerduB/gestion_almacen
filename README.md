@@ -8,7 +8,8 @@ La web se estructura en varias partes; Artículos, relacionada con los tipos de 
 Procesos, en la que se desarrollan las secciones de stock, pedidos, recepciones y la regularización del stock; Usuarios, en esta sección podremos gestionar que usuarios se encuentran registrados y a que secciones tienen acceso.
 
 Para el funcionamiento de esta web he recaudado numerosa información relacionada con el sector con el objetivo de un óptimo posicionamiento, lo que ha dado lugar a una mejora considerable del funcionamiento a la hora de gestionar el stock del almacén.
-
+   
+   
 
 ## 1.LOGIN. Accede a la app logeandote con usuario y contraseña 
 <p align="center"> <img src="./Documentacion/login/login.png"title="hover text" alt="login.png"></p>
