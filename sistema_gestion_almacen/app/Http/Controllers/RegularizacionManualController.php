@@ -37,9 +37,20 @@ class RegularizacionManualController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     { 
-        return view('regularizaciones.index',['regularizaciones_manual' => RegularizacionManual::latest()->paginate($this->numeroLinks)]);
+        $nombre = $request->get('buscarpor');
+
+        return view('regularizaciones.index',['regularizaciones_manual' => 
+                RegularizacionManual::join('almacenes', 'almacen_id', '=', 'almacenes.id')
+                        ->join('sujetos as suj1', 'almacenes.sujeto_id', '=', 'suj1.id')  
+                        ->whereRaw("UPPER(almacenes.codigo) =  UPPER('".$nombre."') OR 
+                                    UPPER(suj1.nombre) like UPPER('%".$nombre."%') OR 
+                                    UPPER(regularizacionesmanuales.fecha) like UPPER('%".$nombre."%') OR 
+                                    UPPER(CONCAT(Serie, '/', numero)) = UPPER('".$nombre."')
+                                ")
+                        ->orderBy('regularizacionesmanuales.created_at', 'DESC')
+                     ->paginate($this->numeroLinks)] );  
     }
 
     /**

@@ -25,9 +25,15 @@ class RolController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('usuarios.roles.index',['roles' => Rol::latest()->paginate($this->numeroLinks)]);
+    public function index(Request $request)
+    { 
+        $nombre = $request->get('buscarpor');
+
+        return view('usuarios.roles.index',['roles' => 
+                    Rol::whereRaw(" UPPER(roles.nombre) like UPPER('%".$nombre."%') OR
+                                            UPPER(roles.codigo) like UPPER('%".$nombre."%')")
+                                ->orderBy('roles.created_at', 'DESC')
+                                ->paginate($this->numeroLinks)] );    
     }
 
     

@@ -41,8 +41,23 @@ class PedidoCompraController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {     
-        return view('pedidos.index',['pedidos_compra' => PedidoCompra::latest()->paginate($this->numeroLinks)]); 
+    { 
+        $nombre = $request->get('buscarpor');
+
+        return view('pedidos.index',['pedidos_compra' => 
+                  PedidoCompra::join('almacenes', 'almacenDestinoCompra_ID', '=', 'almacenes.id')
+                        ->join('sujetos as suj1', 'almacenes.sujeto_id', '=', 'suj1.id')
+                        ->join('proveedores', 'proveedor_id', '=', 'proveedores.id')
+                        ->join('sujetos as suj2', 'proveedores.sujeto_id', '=', 'suj2.id')
+                        ->whereRaw("UPPER(almacenes.codigo) =  UPPER('".$nombre."') OR
+                                    UPPER(proveedores.codigo) = UPPER('".$nombre."') OR 
+                                    UPPER(suj1.nombre) like UPPER('%".$nombre."%') OR
+                                    UPPER(suj2.nombre) like UPPER('%".$nombre."%') or
+                                    UPPER(pedidoscompras.fecha) like UPPER('%".$nombre."%') or
+                                    UPPER(CONCAT(Serie, '/', numero)) = UPPER('".$nombre."')
+                                ")
+                        ->orderBy('pedidoscompras.created_at', 'DESC')
+                     ->paginate($this->numeroLinks)] ); 
     }
 
     /**

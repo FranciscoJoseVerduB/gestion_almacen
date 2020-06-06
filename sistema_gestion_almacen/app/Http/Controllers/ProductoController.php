@@ -15,6 +15,7 @@ class ProductoController extends Controller
     private $numeroLinks = 15;
 
 
+
     public function __construct()
     { 
         $this->middleware('auth'); 
@@ -25,13 +26,33 @@ class ProductoController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */    
     public function index(Request $request)
     { 
         $nombre = $request->get('buscarpor');
 
-        return view('articulos.productos.index',
-                ['productos' => Producto::where('nombre','like',"%$nombre%")->paginate($this->numeroLinks)]);
+        return view('articulos.productos.index',['productos' => 
+                    Producto::join('marcas', 'marca_id', '=', 'marcas.id')
+                        ->join('subfamilias', 'subfamilia_id', '=', 'subfamilias.id')
+                        ->join('familias', 'subfamilias.familia_id', '=', 'familias.id') 
+                        ->join('impuestos', 'impuesto_id', '=', 'impuestos.id')
+                        ->whereRaw("UPPER(marcas.codigo) like  UPPER('%".$nombre."%') OR
+                                    UPPER(marcas.nombre) like UPPER('%".$nombre."%') OR 
+
+                                    UPPER(subfamilias.codigo) like UPPER('%".$nombre."%') OR 
+                                    UPPER(subfamilias.nombre) like UPPER('%".$nombre."%') OR 
+                                    
+                                    UPPER(familias.codigo) like UPPER('%".$nombre."%') OR 
+                                    UPPER(familias.nombre) like UPPER('%".$nombre."%') OR
+
+                                    UPPER(impuestos.codigo) like UPPER('%".$nombre."%') OR
+                                    UPPER(impuestos.nombre) like UPPER('%".$nombre."%') OR
+
+                                    UPPER(productos.codigo) like UPPER('%".$nombre."%') OR
+                                    UPPER(productos.nombre) like UPPER('%".$nombre."%')
+                                ")
+                     ->paginate($this->numeroLinks)] );
+ 
     }
 
     /**

@@ -27,9 +27,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     { 
-        return view('usuarios.index',['usuarios' => User::latest()->paginate($this->numeroLinks)]); 
+        $nombre = $request->get('buscarpor');
+
+        return view('usuarios.index',['usuarios' => 
+                    User::whereRaw(" UPPER(users.nombre) like UPPER('%".$nombre."%') OR
+                                            UPPER(users.codigo) like UPPER('%".$nombre."%') OR 
+                                                UPPER(users.email) like UPPER('%".$nombre."%')")
+                                ->orderBy('users.created_at', 'DESC')
+                                ->paginate($this->numeroLinks)] );    
     }
 
     /**

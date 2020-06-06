@@ -27,9 +27,17 @@ class AlmacenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {    
-        return view('almacenes.index',['almacenes' => Almacen::latest()->paginate($this->numeroLinks)]);
+    public function index(Request $request)
+    { 
+        $nombre = $request->get('buscarpor');
+
+        return view('almacenes.index',['almacenes' => Almacen::join('sujetos', 'sujeto_id', '=', 'sujetos.id') 
+                    ->whereRaw(" UPPER(sujetos.nombre) like UPPER('%".$nombre."%') OR 
+                                    UPPER(almacenes.codigo) like UPPER('%".$nombre."%')")
+                    ->orderBy('almacenes.created_at', 'DESC')
+                    ->paginate($this->numeroLinks)] );
+        
+        // return view('almacenes.index',['almacenes' => Almacen::->paginate($this->numeroLinks)]);
     }
 
     /**

@@ -40,9 +40,24 @@ class RecepcionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('recepciones.index',['recepciones' => Recepcion::latest()->paginate($this->numeroLinks)]); 
+    public function index(Request $request)
+    { 
+        $nombre = $request->get('buscarpor');
+
+        return view('recepciones.index',['recepciones' => 
+                    Recepcion::join('almacenes', 'almacen_id', '=', 'almacenes.id')
+                        ->join('sujetos as suj1', 'almacenes.sujeto_id', '=', 'suj1.id')
+                        ->join('proveedores', 'proveedor_id', '=', 'proveedores.id')
+                        ->join('sujetos as suj2', 'proveedores.sujeto_id', '=', 'suj2.id')
+                        ->whereRaw("UPPER(almacenes.codigo) =   UPPER('".$nombre."') OR
+                                    UPPER(proveedores.codigo) = UPPER('".$nombre."') OR 
+                                    UPPER(suj1.nombre) like UPPER('%".$nombre."%') OR
+                                    UPPER(suj2.nombre) like UPPER('%".$nombre."%') OR
+                                    UPPER(recepciones.fecha) like UPPER('%".$nombre."%') or
+                                    UPPER(CONCAT(Serie, '/', numero)) = UPPER('".$nombre."')
+                                ")
+                     ->orderBy('recepciones.created_at', 'DESC')
+                     ->paginate($this->numeroLinks)] ); 
     }
 
     /**

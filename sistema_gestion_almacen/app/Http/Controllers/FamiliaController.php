@@ -23,9 +23,15 @@ class FamiliaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('articulos.familias.index',['familias' => Familia::latest()->paginate($this->numeroLinks)]);
+    public function index(Request $request)
+    { 
+        $nombre = $request->get('buscarpor');
+
+        return view('articulos.familias.index',['familias' => 
+                    Familia::whereRaw(" UPPER(familias.nombre) like UPPER('%".$nombre."%') OR
+                                            UPPER(familias.codigo) like UPPER('%".$nombre."%')")
+                            ->orderBy('familias.created_at', 'DESC')
+                            ->paginate($this->numeroLinks)] ); 
     }
 
     /**

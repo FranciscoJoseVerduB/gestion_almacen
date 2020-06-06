@@ -32,11 +32,11 @@ class StockController extends Controller
                     ->join('sujetos', 'sujeto_id', '=', 'sujetos.id')
                     ->join('productos', 'producto_id', '=', 'productos.id')
                     ->whereRaw("UPPER(productos.nombre) like  UPPER('%".$nombre."%') OR
-                                UPPER(sujetos.nombre) like UPPER('%".$nombre."%')
+                                UPPER(productos.codigo) =  UPPER('".$nombre."') OR
+                                UPPER(sujetos.nombre) like UPPER('%".$nombre."%') or
+                                UPPER(almacenes.codigo) =  UPPER('".$nombre."')
                                 ")
-                     ->paginate($this->numeroLinks)] );
-        
-        // return view('stocks.index',['stocks' => Stock::orderBy('almacen_id')->paginate(5)]);
+                     ->paginate($this->numeroLinks)] ); 
     }
 
     /**

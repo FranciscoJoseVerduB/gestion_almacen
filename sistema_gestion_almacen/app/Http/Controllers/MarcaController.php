@@ -24,9 +24,16 @@ class MarcaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('articulos.marcas.index',['marcas' => Marca::latest()->paginate($this->numeroLinks)]);
+
+    public function index(Request $request)
+    { 
+        $nombre = $request->get('buscarpor');
+
+        return view('articulos.marcas.index',['marcas' => 
+                            Marca::whereRaw(" UPPER(marcas.nombre) like UPPER('%".$nombre."%') or
+                                                UPPER(marcas.codigo) like UPPER('%".$nombre."%')")
+                                    ->orderBy('marcas.created_at', 'DESC')
+                                    ->paginate($this->numeroLinks)] );   
     }
 
     /**

@@ -23,9 +23,16 @@ class ImpuestoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('articulos.impuestos.index',['impuestos' => Impuesto::latest()->paginate($this->numeroLinks)]);
+
+    public function index(Request $request)
+    { 
+        $nombre = $request->get('buscarpor');
+
+        return view('articulos.impuestos.index',['impuestos' => 
+                            Impuesto::whereRaw(" UPPER(impuestos.nombre) like UPPER('%".$nombre."%') OR
+                                                    UPPER(impuestos.codigo) like UPPER('%".$nombre."%')")
+                                    ->orderBy('impuestos.created_at', 'DESC')
+                                    ->paginate($this->numeroLinks)] );  
     }
 
     /**

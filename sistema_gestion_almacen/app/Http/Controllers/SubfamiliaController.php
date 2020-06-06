@@ -25,9 +25,16 @@ class SubfamiliaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-       return view('articulos.subfamilias.index',['subfamilias' => Subfamilia::latest()->paginate($this->numeroLinks)]); 
+
+    public function index(Request $request)
+    { 
+        $nombre = $request->get('buscarpor');
+
+        return view('articulos.subfamilias.index',['subfamilias' => 
+                    Subfamilia::whereRaw(" UPPER(subfamilias.nombre) like UPPER('%".$nombre."%') OR
+                                            UPPER(subfamilias.codigo) like UPPER('%".$nombre."%')")
+                                ->orderBy('subfamilias.created_at', 'DESC')
+                                ->paginate($this->numeroLinks)] );   
     }
 
     /**

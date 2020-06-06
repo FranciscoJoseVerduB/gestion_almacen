@@ -29,7 +29,7 @@ class SaveUserRequest extends FormRequest
             'codigo' =>'required|max:20|unique:users'.($this->usuario? ',codigo,'.$this->usuario->id : ''),
             'nombre' =>'required|max:50',
             'password' => $this->getMethod()==='POST'? 'required': '',
-            'email' => 'required|email',
+            'email' => 'required|unique:users'.($this->usuario? ',email,'.$this->usuario->id : ''),
             'telefono' => 'required|regex:/[0-9]{9}/', 
             'role_id' => 'required'
         ];
