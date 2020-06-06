@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use DateTime;
+use Illuminate\Support\Facades\Mail;
 
 class StockController extends Controller
 {
@@ -114,6 +115,8 @@ class StockController extends Controller
     
     public function visualizarInformeStock(User $user){
         
+        // $this->enviarEmail();
+
         $data = [
             'stocks' =>Stock::all()
         ]; 
@@ -121,5 +124,32 @@ class StockController extends Controller
      
         return PDF::loadView('stocks.documentos.doc-pdf', $data)->stream('stocks_'.$date->format('Y-m-d H:i:s').'.pdf');
     }
+
+
+    // public function enviarEmail(){
+
+        
+    //     $data = [
+    //         'stocks' =>Stock::all()
+    //     ];  
+
+    
+    //     Mail::send('stocks.documentos.doc-pdf', $data, function($message){
+    
+            
+    //         $data2 = [
+    //             'stocks' =>Stock::all()
+    //         ];  
+    //         $pdf = PDF::loadView('stocks.documentos.doc-pdf', $data2);
+    
+    //         $message->to('gestionalo99@gmail.com','John Smith')->subject('Mensaje Enviado desde Gestionalo');
+    
+    //         $message->from('gestionalo99@gmail.com','The Sender');
+    
+    //         $message->attach($pdf->output());
+    
+    //     });
+    //    echo 'El Email fue enviado';
+    //   }
 
 }
