@@ -49,7 +49,8 @@ class RegularizacionManualController extends Controller
                                     UPPER(regularizacionesmanuales.fecha) like UPPER('%".$nombre."%') OR 
                                     UPPER(CONCAT(Serie, '/', numero)) = UPPER('".$nombre."')
                                 ")
-                        ->orderBy('regularizacionesmanuales.created_at', 'DESC')
+                        ->orderBy('regularizacionesmanuales.created_at', 'DESC') 
+                        ->select('regularizacionesmanuales.*')
                      ->paginate($this->numeroLinks)] );  
     }
 
@@ -302,9 +303,9 @@ class RegularizacionManualController extends Controller
 
     //Utilizaremos esta función para poder añadir rows en la tabla
     public function anadirLineaTabla(Request  $request){
+ 
 
-        $indice = $request->indice;
-        
+        $indice = $request->indice; 
         $cantidadProductoAlmacen = 0;
 
         echo
@@ -324,11 +325,14 @@ class RegularizacionManualController extends Controller
                             .'</option>
                             ';
                             //Buscamos la cantidad del almacen seleccionado y  del primer elemento del selector de items
-                            if($key == 0) $cantidadProductoAlmacen = Stock::where('producto_id', '=', $producto->id)
+                            if($key == 0) 
+                            {
+                                $stock = Stock::where('producto_id', '=', $producto->id)
                                                                                 ->where('almacen_id', '=', $request->almacen_id)
                                                                                 ->get()
-                                                                                ->first()
-                                                                                ->cantidad;
+                                                                                ->first();
+                                if($stock) $cantidadProductoAlmacen = $stock->cantidad;
+                            }
                     }
 
             echo '   </select>

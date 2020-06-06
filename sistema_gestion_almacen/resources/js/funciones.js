@@ -20,7 +20,7 @@ $( document ).ready( function(){
 
 //Funcion utilizada para eliminar una linea de pedido de compra
 $('body').on('click', 'input.eliminarLineaPedido', function() {
-    console.log( $(this).parents('tr').find(".clase-id").val()); 
+    //console.log( $(this).parents('tr').find(".clase-id").val()); 
     $(this).parents('tr').remove();  
  });
  
@@ -110,7 +110,7 @@ $('body').on('input', 'input.calcularImporteLineaPedido', function() {
 
 // Funcion utilizada para eliminar una linea de recepcion
 $('body').on('click', 'input.eliminarLineaRecepcion', function() {
-    console.log( $(this).parents('tr').find(".clase-id").val()); 
+    //console.log( $(this).parents('tr').find(".clase-id").val()); 
     $(this).parents('tr').remove();  
  });
   //Funcion utilizada para añadir una linea de pedido de compra
@@ -214,7 +214,7 @@ $('body').on('click', 'button.anadirLineaPedidoEnRecepcion', function() {
 //DOCUMENTOS DE REGULARIZACION DE STOCK ********************************************************************
 //Funcion utilizada para eliminar una linea de un documento de regularización de stock
 $('body').on('click', 'input.eliminarLineaRegularizacionManual', function() {
-    console.log( $(this).parents('tr').find(".clase-id").val()); 
+   // console.log( $(this).parents('tr').find(".clase-id").val()); 
     $(this).parents('tr').remove();  
  });
 
@@ -231,7 +231,7 @@ $('body').on('click', 'input.anadirLineaRegularizacionManual', function() {
     
     //Obtenemos el id del almacen seleccionado
     var almacen_id =  $("#almacen_id").children("option:selected").val(); 
-
+    console.log('El almacen seleccionado es: ' + almacen_id);
    
     indice = indice +1;
    

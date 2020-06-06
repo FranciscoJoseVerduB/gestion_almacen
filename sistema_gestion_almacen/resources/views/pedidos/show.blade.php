@@ -6,9 +6,10 @@
     <div class="container-fluid">
         <div class="bg-white p-5 shadow rounded sm-show"> 
  
- 
-<!-- Datos principales -->
 
+            
+             
+<!-- Datos principales --> 
     @include('partials._show-table', [
         'columnas' => [
             'Serie',

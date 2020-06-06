@@ -31,6 +31,7 @@ class FamiliaController extends Controller
                     Familia::whereRaw(" UPPER(familias.nombre) like UPPER('%".$nombre."%') OR
                                             UPPER(familias.codigo) like UPPER('%".$nombre."%')")
                             ->orderBy('familias.created_at', 'DESC')
+                            ->select('familias.*')
                             ->paginate($this->numeroLinks)] ); 
     }
 

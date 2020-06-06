@@ -55,8 +55,9 @@ class RecepcionController extends Controller
                                     UPPER(suj2.nombre) like UPPER('%".$nombre."%') OR
                                     UPPER(recepciones.fecha) like UPPER('%".$nombre."%') or
                                     UPPER(CONCAT(Serie, '/', numero)) = UPPER('".$nombre."')
-                                ")
-                     ->orderBy('recepciones.created_at', 'DESC')
+                                ") 
+                     ->select('recepciones.*')
+                     ->orderBy('recepciones.created_at', 'DESC') 
                      ->paginate($this->numeroLinks)] ); 
     }
 

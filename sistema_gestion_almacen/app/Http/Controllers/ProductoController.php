@@ -51,6 +51,7 @@ class ProductoController extends Controller
                                     UPPER(productos.codigo) like UPPER('%".$nombre."%') OR
                                     UPPER(productos.nombre) like UPPER('%".$nombre."%')
                                 ")
+                        ->select('productos.*')
                      ->paginate($this->numeroLinks)] );
  
     }

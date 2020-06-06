@@ -27,9 +27,19 @@ class ProveedorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('proveedores.index',['proveedores' => Proveedor::latest()->paginate($this->numeroLinks)]);
+
+    public function index(Request $request)
+    { 
+        $nombre = $request->get('buscarpor');
+
+        return view('proveedores.index',['proveedores' => 
+                Proveedor::join('sujetos', 'sujeto_id', '=', 'sujetos.id') 
+                        ->whereRaw(" UPPER(sujetos.nombre) like UPPER('%".$nombre."%') OR 
+                                        UPPER(proveedores.codigo) like UPPER('%".$nombre."%')")
+                        ->select('proveedores.*')
+                        ->orderBy('proveedores.created_at', 'DESC')
+                        ->paginate($this->numeroLinks)] );
+          
     }
 
     /**

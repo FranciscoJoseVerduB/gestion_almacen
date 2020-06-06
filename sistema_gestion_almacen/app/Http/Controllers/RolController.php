@@ -33,6 +33,7 @@ class RolController extends Controller
                     Rol::whereRaw(" UPPER(roles.nombre) like UPPER('%".$nombre."%') OR
                                             UPPER(roles.codigo) like UPPER('%".$nombre."%')")
                                 ->orderBy('roles.created_at', 'DESC')
+                                ->select('roles.*')
                                 ->paginate($this->numeroLinks)] );    
     }
 

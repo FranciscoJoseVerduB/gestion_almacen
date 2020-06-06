@@ -33,6 +33,7 @@ class MarcaController extends Controller
                             Marca::whereRaw(" UPPER(marcas.nombre) like UPPER('%".$nombre."%') or
                                                 UPPER(marcas.codigo) like UPPER('%".$nombre."%')")
                                     ->orderBy('marcas.created_at', 'DESC')
+                                    ->select('marcas.*')
                                     ->paginate($this->numeroLinks)] );   
     }
 

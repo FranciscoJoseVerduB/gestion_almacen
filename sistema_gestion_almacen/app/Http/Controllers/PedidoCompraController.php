@@ -56,8 +56,14 @@ class PedidoCompraController extends Controller
                                     UPPER(pedidoscompras.fecha) like UPPER('%".$nombre."%') or
                                     UPPER(CONCAT(Serie, '/', numero)) = UPPER('".$nombre."')
                                 ")
-                        ->orderBy('pedidoscompras.created_at', 'DESC')
+                        ->orderBy('pedidoscompras.created_at', 'DESC') 
+                        ->select('pedidoscompras.*')
                      ->paginate($this->numeroLinks)] ); 
+
+
+
+
+
     }
 
     /**
@@ -146,17 +152,7 @@ class PedidoCompraController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(PedidoCompra $pedidoCompra)
-    {
-        // $this->visualizarDocumento($pedidoCompra);
-
-        // $data = [
-        //     'pedido_compra' =>$pedidoCompra
-        // ];
-     
-        // return PDF::loadView('pedidos.documentos.doc-pdf', $data)->stream('pedido_'.$pedidoCompra->serie.'/'.$pedidoCompra->numero.'.pdf');
-
-
-
+    { 
         return view('pedidos.show', [
             'pedido_compra' => $pedidoCompra
         ]);
@@ -170,7 +166,6 @@ class PedidoCompraController extends Controller
      */
     public function edit(PedidoCompra $pedidoCompra)
     {    
-
         return view('pedidos.edit', [
             'pedido_compra'=> $pedidoCompra,  
             'lineas' => $pedidoCompra->lineas,
@@ -190,8 +185,7 @@ class PedidoCompraController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(SavePedidoCompraRequest $request, PedidoCompra $pedidoCompra)
-    { 
-        
+    {         
         $this->authorize('modificarPanelPedidos', $pedidoCompra);
 
         try{

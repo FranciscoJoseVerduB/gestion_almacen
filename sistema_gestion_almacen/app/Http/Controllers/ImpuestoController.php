@@ -32,6 +32,7 @@ class ImpuestoController extends Controller
                             Impuesto::whereRaw(" UPPER(impuestos.nombre) like UPPER('%".$nombre."%') OR
                                                     UPPER(impuestos.codigo) like UPPER('%".$nombre."%')")
                                     ->orderBy('impuestos.created_at', 'DESC')
+                                    ->select('impuestos.*')
                                     ->paginate($this->numeroLinks)] );  
     }
 

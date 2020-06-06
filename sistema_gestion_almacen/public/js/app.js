@@ -49837,7 +49837,7 @@ $(document).ready(function () {
 //Funcion utilizada para eliminar una linea de pedido de compra
 
 $('body').on('click', 'input.eliminarLineaPedido', function () {
-  console.log($(this).parents('tr').find(".clase-id").val());
+  //console.log( $(this).parents('tr').find(".clase-id").val()); 
   $(this).parents('tr').remove();
 }); //Funcion utilizada para añadir una linea de pedido de compra
 
@@ -49911,7 +49911,7 @@ $('body').on('input', 'input.calcularImporteLineaPedido', function () {
 // Funcion utilizada para eliminar una linea de recepcion
 
 $('body').on('click', 'input.eliminarLineaRecepcion', function () {
-  console.log($(this).parents('tr').find(".clase-id").val());
+  //console.log( $(this).parents('tr').find(".clase-id").val()); 
   $(this).parents('tr').remove();
 }); //Funcion utilizada para añadir una linea de pedido de compra
 
@@ -50005,7 +50005,7 @@ $('body').on('click', 'button.anadirLineaPedidoEnRecepcion', function () {
 //Funcion utilizada para eliminar una linea de un documento de regularización de stock
 
 $('body').on('click', 'input.eliminarLineaRegularizacionManual', function () {
-  console.log($(this).parents('tr').find(".clase-id").val());
+  // console.log( $(this).parents('tr').find(".clase-id").val()); 
   $(this).parents('tr').remove();
 }); //Funcion utilizada para añadir una linea de un documento de regularizacion
 
@@ -50013,13 +50013,17 @@ $('body').on('click', 'input.anadirLineaRegularizacionManual', function () {
   console.log('Se ha hecho click en el evento para añadir una linea de Regularizacion Manual. Indice actual: ' + indice); //En caso de que el indice sea inferior al número de filas, se le asigna el mismo valor al indice 
   //asi se aplicará un indice dinámico, sin que se repita el indice de las filas
 
-  if ($('tbody >tr').length > indice) indice = $('tbody >tr').length;
+  if ($('tbody >tr').length > indice) indice = $('tbody >tr').length; //Obtenemos el id del almacen seleccionado
+
+  var almacen_id = $("#almacen_id").children("option:selected").val();
+  console.log('El almacen seleccionado es: ' + almacen_id);
   indice = indice + 1;
   $.ajax({
     type: "POST",
     url: "anadir-linea",
     data: {
-      'indice': indice
+      'indice': indice,
+      'almacen_id': almacen_id
     },
     // contentType: false, 
     // processData: false,
@@ -50030,6 +50034,36 @@ $('body').on('click', 'input.anadirLineaRegularizacionManual', function () {
     success: function success(datos) {
       console.log("Row Creado OK.");
       $('tbody').append(datos);
+    }
+  });
+}); // Funcion utilizada para buscar el precio del producto seleccionado
+
+$('body').on('change', 'select.buscarStockProductoPorAlmacen', function () {
+  console.log('Se esta buscando la cantidad de stock para el producto y almacen seleccionado');
+  var idEntidad = $(this).attr('id'); //Obtenemos el id del producto seleccionado
+
+  var producto_id = $(this).children("option:selected").val(); //Obtenemos el id del almacen seleccionado
+
+  var almacen_id = $("#almacen_id").children("option:selected").val();
+  $.ajax({
+    type: "POST",
+    url: "buscar-cantidad",
+    data: {
+      'producto_id': producto_id,
+      'almacen_id': almacen_id
+    },
+    // contentType: false, 
+    // processData: false,
+    // async: false, 
+    dataType: "json",
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function success(datos) {
+      console.log('La cantidad de stock para el producto es: ' + datos['stock'].cantidad); //Asignamos la cantidad que tiene el producto en el almacen seleccionado
+
+      document.getElementById(idEntidad.replace('producto_id', 'cantidad')).value = datos.stock.cantidad;
+      if (document.getElementById(idEntidad.replace('producto_id', 'cantidad')).value == '') document.getElementById(idEntidad.replace('producto_id', 'cantidad')).value = 0;
     }
   });
 });
@@ -50054,8 +50088,8 @@ $('body').on('click', 'input.anadirLineaRegularizacionManual', function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Proyectos\Proyectos_Laravel\proyecto_final\sistema_gestion_almacen\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\Proyectos\Proyectos_Laravel\proyecto_final\sistema_gestion_almacen\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\Proyectos\Proyectos_Laravel\proyecto_final\proyecto\sistema_gestion_almacen\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\Proyectos\Proyectos_Laravel\proyecto_final\proyecto\sistema_gestion_almacen\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

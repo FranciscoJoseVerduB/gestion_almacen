@@ -36,8 +36,7 @@ class AlmacenController extends Controller
                                     UPPER(almacenes.codigo) like UPPER('%".$nombre."%')")
                     ->orderBy('almacenes.created_at', 'DESC')
                     ->paginate($this->numeroLinks)] );
-        
-        // return view('almacenes.index',['almacenes' => Almacen::->paginate($this->numeroLinks)]);
+         
     }
 
     /**
