@@ -8,17 +8,19 @@
         <div class="d-flex justify-content-between align-items-center mb-3">  
 
             <div class="d-flex align-items-baseline">
-                <a class="btn btn-primary float-right mr-2"
+                <a class="btn btn-primary  mr-2"
                     href="{{route('familias.index')}}"
                 >Ver Familias disponibles
                 </a>
-                @can('modificarPanelProductos',   App\Subfamilia::class)
-                    <a class="btn btn-primary "
-                        href="{{route('subfamilias.create')}}"
-                    >Crear Subfamilia
-                    </a>
-                @endcan
             </div>
+                @can('modificarPanelProductos',   App\Subfamilia::class)
+                    <div class="d-flex align-items-baseline ">  
+                        <a class="btn btn-primary "
+                            href="{{route('subfamilias.create')}}"
+                        >Crear Subfamilia
+                        </a>
+                    </div>
+                @endcan 
         </div>
  
      

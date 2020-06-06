@@ -34,7 +34,7 @@ class SubfamiliaController extends Controller
                     Subfamilia::whereRaw(" UPPER(subfamilias.nombre) like UPPER('%".$nombre."%') OR
                                             UPPER(subfamilias.codigo) like UPPER('%".$nombre."%')")
                                 ->orderBy('subfamilias.created_at', 'DESC')
-                                ->select('stock.*')
+                                ->select('subfamilias.*')
                                 ->paginate($this->numeroLinks)] );   
     }
 

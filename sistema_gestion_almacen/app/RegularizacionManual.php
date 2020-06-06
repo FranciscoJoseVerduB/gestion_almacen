@@ -9,7 +9,9 @@ class RegularizacionManual extends Model
     protected $table = 'regularizacionesManuales';
     protected $guarded = ['id', 'created_at', 'updated_at'];
  
-    
+    public function getRouteKeyName(){
+        return 'id';
+    }
     
     public function almacen(){
         return $this->belongsTo(Almacen::class, 'almacen_id');

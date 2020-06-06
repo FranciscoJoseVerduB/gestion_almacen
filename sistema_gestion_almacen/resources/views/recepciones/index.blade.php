@@ -22,7 +22,7 @@
                 <th scope="col">Fecha</th>  
                 <th scope="col">Proveedor</th>  
                 <th scope="col">Lineas</th>  
-                <th class=" text-center" scope="col">Operación</th>
+                <th class=" text-center" scope="col" colspan="2">Operación</th>
               </tr>
             </thead>
             <tbody>
@@ -32,10 +32,13 @@
                 <td> {{$recepcion->serie.'/'.$recepcion->numero}} </td> 
                 <td> {{$recepcion->fecha}} </td>  
                 <td> {{$recepcion->proveedor->sujeto->nombre}} </td>      
-                <td> {{$recepcion->lineas->count()}} </td>   
+                <td> {{$recepcion->lineas->count()}} </td>    
+                <td> <a class="btn btn-info btn-sm btn-block"
+                        href="{{route('recepciones.ver-pdf', $recepcion)}}"
+                    >Imprimir </td>  
                 <td> <a class="btn btn-info btn-sm btn-block"
                         href="{{route('recepciones.show', $recepcion)}}"
-                    >Ver Recepción </td> 
+                    >Ver </td> 
              </tr> 
               @empty
                 <tr> 

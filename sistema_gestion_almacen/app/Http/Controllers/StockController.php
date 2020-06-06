@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Middleware\CheckStock;
 use App\Stock;
+use App\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
+use DateTime;
 
 class StockController extends Controller
 {
@@ -106,4 +109,17 @@ class StockController extends Controller
     {
         //
     }
+
+    
+    
+    public function visualizarInformeStock(User $user){
+        
+        $data = [
+            'stocks' =>Stock::all()
+        ]; 
+        $date = new Datetime();
+     
+        return PDF::loadView('stocks.documentos.doc-pdf', $data)->stream('stocks_'.$date->format('Y-m-d H:i:s').'.pdf');
+    }
+
 }

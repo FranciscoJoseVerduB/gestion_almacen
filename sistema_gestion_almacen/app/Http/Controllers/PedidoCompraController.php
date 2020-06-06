@@ -380,10 +380,11 @@ class PedidoCompraController extends Controller
 
 
     
-    public function visualizarDocumento($pedidoCompra){
+    public function visualizarPedido(PedidoCompra $pedidoCompra){
+      
         $data = [
             'pedido_compra' =>$pedidoCompra
-        ];
+        ]; 
      
         return PDF::loadView('pedidos.documentos.doc-pdf', $data)->stream('pedido_'.$pedidoCompra->serie.'/'.$pedidoCompra->numero.'.pdf');
     }

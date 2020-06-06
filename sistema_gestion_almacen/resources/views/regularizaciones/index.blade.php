@@ -2,7 +2,7 @@
  
 @section('title', 'Regularizaciones Manuales')
 
-@section('content') 
+@section('content')  
     <div class="container"> 
         <div class="d-flex justify-content-between align-items-center mb-3">  
             <div class="d-flex align-items-baseline mr-2">
@@ -31,7 +31,7 @@
                 <th scope="col">Fecha</th>    
                 <th scope="col">Almacen</th> 
                 <th scope="col">Lineas</th>  
-                <th class=" text-center" scope="col">Operación</th>
+                <th class=" text-center" scope="col" colspan="2">Operación</th>
               </tr>
             </thead>
             <tbody>
@@ -41,10 +41,13 @@
                 <td> {{$regularizacion_manual->serie.'/'.$regularizacion_manual->numero}} </td>  
                 <td> {{$regularizacion_manual->fecha}} </td>  
                 <td> {{$regularizacion_manual->almacen->sujeto->nombre}} </td>      
-                <td> {{$regularizacion_manual->lineas->count()}} </td>   
+                <td> {{$regularizacion_manual->lineas->count()}} </td>    
+                <td> <a class="btn btn-info btn-sm btn-block"
+                        href="{{route('regularizaciones_manual.ver-pdf', $regularizacion_manual)}}"
+                    >Imprimir </td>   
                 <td> <a class="btn btn-info btn-sm btn-block"
                         href="{{route('regularizaciones_manual.show', $regularizacion_manual)}}"
-                    >Ver Regularización </td> 
+                    >Ver </td> 
              </tr> 
               @empty
                 <tr> 

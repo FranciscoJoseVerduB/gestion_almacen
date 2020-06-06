@@ -40,8 +40,8 @@
     <textarea class="clase-cajatexto" 
             readonly
             name="observaciones" 
-            id="observaciones">
-              {{$pedido_compra->observaciones}}
+            id="observaciones"
+            >{{$pedido_compra->observaciones}}
         </textarea>  
 </div>
             

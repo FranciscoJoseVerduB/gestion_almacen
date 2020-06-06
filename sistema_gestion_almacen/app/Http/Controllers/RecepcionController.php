@@ -18,7 +18,8 @@ use App\User;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB; 
+use Barryvdh\DomPDF\Facade as PDF;
 
 class RecepcionController extends Controller
 {
@@ -477,5 +478,20 @@ class RecepcionController extends Controller
   
         return response()->json(['indice'=>$indice,'row'=>$row]);
     }
+
+
+    
+
+
+    
+    public function visualizarRecepcion(Recepcion $recepcion){
+      
+        $data = [
+            'recepcion' =>$recepcion
+        ]; 
+     
+        return PDF::loadView('recepciones.documentos.doc-pdf', $data)->stream('recepcion_'.$recepcion->serie.'/'.$recepcion->numero.'.pdf');
+    }
+
 
 }

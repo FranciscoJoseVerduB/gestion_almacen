@@ -12,6 +12,12 @@
                     >Regularizar stock
                     </a>
             </div>
+            <div class="d-flex align-items-baseline">
+              <a class="btn btn-primary "
+                  href="{{route('stocks.ver-pdf', ['user' =>Auth::user()])}}"
+              >Informe Inventario
+              </a>
+      </div>
         </div>
  
 

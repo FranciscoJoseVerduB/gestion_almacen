@@ -43,6 +43,7 @@ Route::prefix('pedidos_compra')->group(function(){
     Route::post('{pedido_compra}/anadir-linea', 'PedidoCompraController@anadirLineaTabla')->name('pedidos_compra.anadir-linea');
     Route::post('anadir-linea', 'PedidoCompraController@anadirLineaTabla')->name('pedidos_compra.anadir-linea');
     Route::post('buscar-precio-producto', 'PedidoCompraController@buscarPrecioProducto')->name('pedidos_compra.buscar-precio-producto'); 
+    Route::any('{pedido_compra}/ver-pdf', 'PedidoCompraController@visualizarPedido')->name('pedidos_compra.ver-pdf'); 
 });
 
 
@@ -59,14 +60,17 @@ Route::prefix('recepciones')->group(function(){
     
     Route::post('{recepcion}/anadirLineaPedidoEnRecepcion', 'RecepcionController@anadirLineaPedidoEnRecepcion')->name('recepciones.anadirLineaPedidoEnRecepcion');
     Route::post('anadirLineaPedidoEnRecepcion', 'RecepcionController@anadirLineaPedidoEnRecepcion')->name('recepciones.anadirLineaPedidoEnRecepcion');
-    
+    Route::any('{recepcion}/ver-pdf', 'RecepcionController@visualizarRecepcion')->name('recepciones.ver-pdf'); 
 });
 
 
 
 //Stocks
 Route::resource('stocks', 'StockController')->names('stocks');
-Route::post('stocks/regularizarStock', 'StockController@regularizarStock')->name('stocks.regularizarStock');
+Route::prefix('stocks')->group(function(){
+    Route::post('regularizarStock', 'StockController@regularizarStock')->name('stocks.regularizarStock');
+    Route::any('{user}/ver-pdf', 'StockController@visualizarInformeStock')->name('stocks.ver-pdf');     
+});
 
 
 //Regularizaciones de stock
@@ -77,6 +81,7 @@ Route::prefix('regularizaciones_manual')->group(function(){
     
     Route::post('{regularizacion}/buscar-cantidad', 'RegularizacionManualController@buscarCantidadStockPorAlmacen')->name('regularizaciones_manual.buscar-cantidad');     
     Route::post('buscar-cantidad', 'RegularizacionManualController@buscarCantidadStockPorAlmacen')->name('regularizaciones_manual.buscar-cantidad');     
+    Route::any('{regularizacion}/ver-pdf', 'RegularizacionManualController@visualizarRegularizacion')->name('regularizaciones_manual.ver-pdf'); 
 });
 
 
@@ -92,66 +97,4 @@ Route::get('/', 'HomeController@index')->name('home');
 
 
 
-
-
-//Pruebas. Crear un documento word desde html
-Route::get('/docs-generate', function(){ 
-    $headers = array( 
-        "Content-type"=>"text/html",
-        "Content-Disposition"=>"attachment;Filename=myGeneratefile.doc" 
-    ); 
-    $content = '<html> 
-            <head><meta charset="utf-8"></head> 
-                <body> 
-                    <p>My Blog Laravel 7 generate word document from html Example - Nicesnippets.com</p> 
-                    <ul>
-                        <li>Php</li>
-                        <li>Laravel</li>
-                        <li>Html</li>
-                    </ul> 
-                </body> 
-            </html>'; 
-    return \Response::make($content,200, $headers); 
-});
-
-
-Route::get('/docs-pdf', function(){ 
-    $headers = array( 
-        "Content-type"=>"text/html",
-        "Content-Disposition"=>"attachment;Filename=myGeneratefile.doc" 
-    ); 
-    $content = '<style>
-    .page-break {
-        page-break-after: always;
-    }
-    </style>
-    <h1>Page 1</h1>
-    <div class="page-break"></div>
-    <h1>Page 2</h1>'; 
-
-    // $pdf = App::make('dompdf.wrapper');
-    // $pdf->loadHTML($content);
-    // return $pdf->stream(); 
-
  
-    $almacen = Almacen::first();
-    $data = [
-        'almacen' =>$almacen,  
-        'sujeto' => $almacen->sujeto,
-        'direccion' => $almacen->sujeto->direccion,
-        'geolocalizacion' => $almacen->geolocalizacion
-    ];
- 
-    return PDF::loadView('almacenes/edit', $data)->stream('archivo.pdf');
- 
-    // Storage::disk('public')->put('almacen-edit.pdf', $content);
-   
-
-    // return response()->file('almacen-edit.pdf');
-
-});
-
-
-
-
-

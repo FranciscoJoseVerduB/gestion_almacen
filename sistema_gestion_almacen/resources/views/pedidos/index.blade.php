@@ -24,7 +24,7 @@
                 <th scope="col">Fecha</th>  
                 <th scope="col">Proveedor</th>  
                 <th scope="col">Lineas</th>  
-                <th class=" text-center" scope="col">Operación</th>
+                <th class=" text-center" scope="col" colspan="2">Operación</th>
               </tr>
             </thead>
             <tbody>
@@ -35,10 +35,13 @@
                 <td> {{$pedido_compra->estado->estado}} </td>  
                 <td> {{$pedido_compra->fecha}} </td>  
                 <td> {{$pedido_compra->proveedor->sujeto->nombre}} </td>      
-                <td> {{$pedido_compra->lineas->count()}} </td>   
+                <td> {{$pedido_compra->lineas->count()}} </td>  
+                <td> <a class="btn btn-info btn-sm btn-block"
+                        href="{{route('pedidos_compra.ver-pdf', $pedido_compra)}}"
+                    >Imprimir </td>  
                 <td> <a class="btn btn-info btn-sm btn-block"
                         href="{{route('pedidos_compra.show', $pedido_compra)}}"
-                    >Ver Pedido </td> 
+                    >Ver </td> 
              </tr> 
               @empty
                 <tr> 

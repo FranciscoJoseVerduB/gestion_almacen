@@ -15,6 +15,9 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
+
+
 
 class RegularizacionManualController extends Controller
 {
@@ -373,5 +376,13 @@ class RegularizacionManualController extends Controller
     }
 
 
-
+    
+    public function visualizarRegularizacion(RegularizacionManual $regularizacionManual){
+       
+        $data = [
+            'regularizacion_manual' =>$regularizacionManual
+        ]; 
+     
+        return PDF::loadView('regularizaciones.documentos.doc-pdf', $data)->stream('regularizacionManual_'.$regularizacionManual->serie.'/'.$regularizacionManual->numero.'.pdf');
+    }
 }
