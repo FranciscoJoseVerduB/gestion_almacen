@@ -378,7 +378,7 @@ class RegularizacionManualController extends Controller
 
     
     public function visualizarRegularizacion(RegularizacionManual $regularizacionManual){
-       
+        
         $data = [
             'regularizacion_manual' =>$regularizacionManual
         ]; 

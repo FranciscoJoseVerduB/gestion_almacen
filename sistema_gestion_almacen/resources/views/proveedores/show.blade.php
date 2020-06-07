@@ -21,7 +21,7 @@
             ],
         'filas'=> [
                 $proveedor->codigo,
-                $proveedor->sujeto->nombre . $proveedor->sujeto->primerApellido . $proveedor->sujeto->segundoApellido,
+                $proveedor->sujeto->nombre .' '. $proveedor->sujeto->primerApellido . ' ' . $proveedor->sujeto->segundoApellido,
                 $proveedor->sujeto->nif,
                 $proveedor->sujeto->email,
                 $proveedor->sujeto->personaContacto,

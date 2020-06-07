@@ -20,10 +20,16 @@ class UsuarioPolicy
     } 
     
     public function verPanelUsuarios(User $user){
-        return (bool) $user->rol->permisosRol->verPanelUsuarios;
+        return (
+                 (bool) $user->rol->permisosRol->verPanelUsuarios &&
+                 (bool) $user->rol->permisosRol->permisoAdministrador
+        );
     }
     
     public function modificarPanelUsuarios(User $user){
-        return (bool) $user->rol->permisosRol->modificarPanelUsuarios;
+        return (
+                (bool) $user->rol->permisosRol->modificarPanelUsuarios &&
+                (bool) $user->rol->permisosRol->permisoAdministrador
+        );
     }
 }

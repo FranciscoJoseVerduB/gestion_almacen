@@ -152,7 +152,7 @@ class RolController extends Controller
         $this->authorize('modificarPanelUsuarios', $rol);
 
         //Si el usuario es el administrador, no se podrá modificar
-        if($rol->codigo = "admin") 
+        if($rol->codigo === "admin") 
             return redirect()->route('roles.index')->with('status', 'El rol no se puede modificar. Es administrador'); 
 
 
@@ -200,8 +200,8 @@ class RolController extends Controller
     {
         $this->authorize('modificarPanelUsuarios', $rol);
                
-        //Si el usuario es el administrador, no se podrá modificar
-        if($rol->codigo = "admin") 
+        //Si el rol es el administrador, no se podrá modificar
+        if($rol->codigo === "admin") 
             return redirect()->route('roles.index')->with('status', 'El rol no se puede eliminar. Es administrador'); 
 
                 

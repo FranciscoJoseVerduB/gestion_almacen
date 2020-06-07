@@ -54,8 +54,8 @@ class UsuarioSeeder extends Seeder
             $rol->save();
     
             $user = new User([
-                'codigo' =>'prueba',
-                'nombre' => 'prueba',
+                'codigo' =>'admin',
+                'nombre' => 'Usuario administrador',
                 'password' => bcrypt('teleco'),
                 'email' => 'prueba@prueba.com',
                 'telefono' => '333666999'

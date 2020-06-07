@@ -15,7 +15,8 @@ class CheckUsuario
      */
     public function handle($request, Closure $next)
     {
-        if(!(bool)$request->user()->rol->permisosRol->verPanelUsuarios)
+        if(!(bool)$request->user()->rol->permisosRol->verPanelUsuarios &&
+                !(bool)$request->user()->rol->permisosRol->permisoAdministrador)
             abort('403', 'No tiene autorización para acceder a esta sección');
 
         return $next($request);

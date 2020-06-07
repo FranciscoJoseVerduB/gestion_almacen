@@ -21,7 +21,7 @@
             ],
         'filas'=> [
                 $almacen->codigo,
-                $almacen->sujeto->nombre . $almacen->sujeto->primerApellido . $almacen->sujeto->segundoApellido,
+                $almacen->sujeto->nombre . ' '.  $almacen->sujeto->primerApellido . ' '. $almacen->sujeto->segundoApellido,
                 $almacen->sujeto->nif,
                 $almacen->sujeto->email,
                 $almacen->sujeto->personaContacto,

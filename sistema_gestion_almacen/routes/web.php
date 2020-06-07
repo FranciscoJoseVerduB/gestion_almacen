@@ -77,11 +77,11 @@ Route::prefix('stocks')->group(function(){
 Route::resource('regularizaciones_manual', 'RegularizacionManualController')->names('regularizaciones_manual')->parameters(['regularizaciones_manual'=>'regularizacion_manual']);
 Route::prefix('regularizaciones_manual')->group(function(){
     Route::post('anadir-linea', 'RegularizacionManualController@anadirLineaTabla')->name('regularizaciones_manual.anadir-linea');
-    Route::post('{regularizacion}/anadir-linea', 'RegularizacionManualController@anadirLineaTabla')->name('regularizaciones_manual.anadir-linea');     
+    Route::post('{regularizacion_manual}/anadir-linea', 'RegularizacionManualController@anadirLineaTabla')->name('regularizaciones_manual.anadir-linea');     
     
-    Route::post('{regularizacion}/buscar-cantidad', 'RegularizacionManualController@buscarCantidadStockPorAlmacen')->name('regularizaciones_manual.buscar-cantidad');     
+    Route::post('{regularizacion_manual}/buscar-cantidad', 'RegularizacionManualController@buscarCantidadStockPorAlmacen')->name('regularizaciones_manual.buscar-cantidad');     
     Route::post('buscar-cantidad', 'RegularizacionManualController@buscarCantidadStockPorAlmacen')->name('regularizaciones_manual.buscar-cantidad');     
-    Route::any('{regularizacion}/ver-pdf', 'RegularizacionManualController@visualizarRegularizacion')->name('regularizaciones_manual.ver-pdf'); 
+    Route::any('{regularizacion_manual}/ver-pdf', 'RegularizacionManualController@visualizarRegularizacion')->name('regularizaciones_manual.ver-pdf');
 });
 
 
