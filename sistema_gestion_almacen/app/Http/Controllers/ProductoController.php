@@ -80,7 +80,7 @@ class ProductoController extends Controller
      */
     public function store(SaveProductoRequest $request)
     { 
-        $this->authorize('modificarPanelProductos', new Producto);
+        $this->authorize('modificarPanelProductos', Producto::class);
 
         Producto::create($request->validated());
         return redirect()->route('productos.index')->with('status', 'El producto fue creado con éxito');

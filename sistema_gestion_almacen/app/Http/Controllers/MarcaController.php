@@ -57,7 +57,7 @@ class MarcaController extends Controller
      */
     public function store(SaveMarcaRequest $request)
     {
-        $this->authorize('modificarPanelProductos', new Marca);
+        $this->authorize('modificarPanelProductos', Marca::class);
 
 
         Marca::create($request->validated()); 

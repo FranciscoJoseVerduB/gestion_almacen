@@ -22,7 +22,9 @@
                     Editar usuario
                 </h1>
                 <hr> 
+                
                 @include('usuarios._form', ['btnText' => 'Editar'])
+                 
             </form>
         </div>
     </div>    

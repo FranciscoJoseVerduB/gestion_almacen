@@ -81,7 +81,7 @@ class RegularizacionManualController extends Controller
      */
     public function store(SaveRegularizacionRequest $request)
     {
-        $this->authorize('modificarPanelStock', new RegularizacionManual);
+        $this->authorize('modificarPanelStock',  RegularizacionManual::class);
 
         try{
             DB::beginTransaction();

@@ -62,7 +62,7 @@ class AlmacenController extends Controller
      */
     public function store(SaveAlmacenRequest $request)
     {
-        $this->authorize('modificarPanelAlmacenes', new Almacen);
+        $this->authorize('modificarPanelAlmacenes', Almacen::class);
 
         try{
             $direccion = new Direccion([

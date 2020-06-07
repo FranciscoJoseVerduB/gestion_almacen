@@ -89,7 +89,7 @@ class RecepcionController extends Controller
      */
     public function store(SaveRecepcionRequest $request)
     { 
-        $this->authorize('modificarPanelRecepciones', new Recepcion);
+        $this->authorize('modificarPanelRecepciones',  Recepcion::class);
 
         try{
             DB::beginTransaction();

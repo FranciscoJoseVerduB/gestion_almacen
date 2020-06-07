@@ -60,7 +60,7 @@ class UserController extends Controller
      */
     public function store(SaveUserRequest $request)
     {
-        $this->authorize('modificarPanelUsuarios', new User);
+        $this->authorize('modificarPanelUsuarios',  User::class);
 
         $user = new User($request->validated());
         $user->password = Hash::make($request->password);
@@ -108,6 +108,10 @@ class UserController extends Controller
     {
         $this->authorize('modificarPanelUsuarios', $usuario);
 
+        //Si el usuario es el administrador, no se podrá modificar
+        if($usuario->codigo = "admin") 
+            return redirect()->route('usuarios.index')->with('status', 'El usuario no se puede modificar. Es administrador'); 
+
         $usuario->update($request->validated());   
         return redirect()->route('usuarios.index')->with('status', 'El usuario fue actualizado con éxito'); 
     }
@@ -121,6 +125,10 @@ class UserController extends Controller
     public function destroy(User $usuario)
     {
         $this->authorize('modificarPanelUsuarios', $usuario);
+
+        //Si el usuario es el administrador, no se podrá modificar
+        if($usuario->codigo = "admin") 
+            return redirect()->route('usuarios.index')->with('status', 'El usuario no se puede eliminar. Es administrador'); 
 
         $usuario->delete(); 
         return redirect()->route('usuarios.index')->with('status', 'El usuario fue eliminado con éxito');     

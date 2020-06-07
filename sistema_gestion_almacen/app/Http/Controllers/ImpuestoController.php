@@ -56,7 +56,7 @@ class ImpuestoController extends Controller
      */
     public function store(SaveImpuestoRequest $request)
     { 
-        $this->authorize('modificarPanelProductos', new Impuesto);
+        $this->authorize('modificarPanelProductos', Impuesto::class);
 
         Impuesto::create($request->validated()); 
         return redirect()->route('impuestos.index')->with('status', 'El impuesto fue creado con éxito');

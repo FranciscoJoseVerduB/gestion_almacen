@@ -60,7 +60,7 @@ class RolController extends Controller
      */
     public function store(SaveRolRequest $request)
     {
-        $this->authorize('modificarPanelUsuarios', new Rol);
+        $this->authorize('modificarPanelUsuarios', Rol::class);
 
         try{
             DB::beginTransaction();
@@ -151,6 +151,12 @@ class RolController extends Controller
     { 
         $this->authorize('modificarPanelUsuarios', $rol);
 
+        //Si el usuario es el administrador, no se podrá modificar
+        if($rol->codigo = "admin") 
+            return redirect()->route('roles.index')->with('status', 'El rol no se puede modificar. Es administrador'); 
+
+
+
         $rol->codigo = $request->codigo;
         $rol->nombre = $request->nombre;
         $rol->permisosRol->permisoAdministrador = $request->permisoAdministrador? 1: 0;
@@ -193,6 +199,12 @@ class RolController extends Controller
     public function destroy(Rol $rol)
     {
         $this->authorize('modificarPanelUsuarios', $rol);
+               
+        //Si el usuario es el administrador, no se podrá modificar
+        if($rol->codigo = "admin") 
+            return redirect()->route('roles.index')->with('status', 'El rol no se puede eliminar. Es administrador'); 
+
+                
 
         $puedeBorrarse = Rol::whereRaw('id in (select distinct role_id from users )')
                                     ->where('id', '=', $rol->id)  

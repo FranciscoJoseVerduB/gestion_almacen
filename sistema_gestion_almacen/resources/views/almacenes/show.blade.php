@@ -17,7 +17,7 @@
             'Email',
             'Persona de Contacto', 
             'Página web', 
-            'Creado',
+            'Creado', 
             ],
         'filas'=> [
                 $almacen->codigo,

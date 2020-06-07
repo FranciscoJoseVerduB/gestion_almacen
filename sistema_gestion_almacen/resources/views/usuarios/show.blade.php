@@ -27,6 +27,7 @@
              ])  
  
  
+ 
             @include('partials._show-operations', [
                     'ruta' => 'usuarios',
                     'objeto'=> $usuario, 

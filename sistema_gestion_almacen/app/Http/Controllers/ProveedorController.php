@@ -65,7 +65,7 @@ class ProveedorController extends Controller
      */
     public function store(SaveProveedorRequest $request)
     { 
-        $this->authorize('modificarPanelProveedores', new Proveedor);
+        $this->authorize('modificarPanelProveedores', Proveedor::class);
 
 
         try{

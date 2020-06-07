@@ -55,7 +55,7 @@ class FamiliaController extends Controller
      */
     public function store(SaveFamiliaRequest $request)
     { 
-        $this->authorize('modificarPanelProductos', new Familia);
+        $this->authorize('modificarPanelProductos', Familia::class);
 
         Familia::create($request->validated()); 
         return redirect()->route('familias.index')->with('status', 'La familia fue creada con éxito');

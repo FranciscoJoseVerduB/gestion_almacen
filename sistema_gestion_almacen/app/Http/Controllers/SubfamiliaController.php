@@ -59,7 +59,7 @@ class SubfamiliaController extends Controller
      */
     public function store(SaveSubfamiliaRequest $request)
     { 
-        $this->authorize('modificarPanelProductos', new Subfamilia);
+        $this->authorize('modificarPanelProductos',  Subfamilia::class);
 
         Subfamilia::create($request->validated()); 
         return redirect()->route('subfamilias.index')->with('status', 'La subfamilia fue creada con éxito');
