@@ -23,7 +23,7 @@ class Stock extends Model
     }
 
     public function movimientos(){
-        return $this->hasMany(MovimientoAlmacen::class, 'almacen_id', 'almacen_id')
-                            ->where('producto_id', $this->producto_id); 
+        return $this->hasMany(MovimientoAlmacen::class, 'almacen_id',  'almacen_id')
+                            ->where('producto_id', '=', $this->producto_id); 
     }
 }

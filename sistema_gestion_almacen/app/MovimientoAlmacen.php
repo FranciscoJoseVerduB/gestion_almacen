@@ -28,7 +28,7 @@ class MovimientoAlmacen extends Model
 
     public function recepcionLinea(){  
         return $this->belongsTo(RecepcionLinea::class,'documentoOrigen_id', 'id' )
-                                ->with('movimiento');
+        ->with('movimiento');
     } 
 
     public function pedidoLinea(){

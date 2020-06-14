@@ -56,7 +56,7 @@ class UsuarioSeeder extends Seeder
             $user = new User([
                 'codigo' =>'admin',
                 'nombre' => 'Usuario administrador',
-                'password' => bcrypt('teleco'),
+                'password' => bcrypt('admin'),
                 'email' => 'prueba@prueba.com',
                 'telefono' => '333666999'
             ]);
